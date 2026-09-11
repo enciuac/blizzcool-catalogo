@@ -27,7 +27,7 @@ const STR = {
     heroTitle: "Equipos de climatización, frío y protección térmica industrial.",
     heroSubtitle: "Aire acondicionado portátil, enfriadores evaporativos, nebulizadores, ventilación industrial y ropa refrigerante. Un catálogo, una ficha técnica por equipo.",
     statTotal: "Equipos en catálogo", statCategorias: "Familias de producto",
-    statFotos: "Con foto cargada", statPrecios: "Con precio fijado",
+    statFotos: "Hasta 15 °C menos en condiciones óptimas", statPrecios: "Sin obra: equipos portátiles con enchufe estándar",
     ctaBandTitle: "¿No encuentras el equipo adecuado para tu espacio?",
     ctaBandText: "Cuéntanos tu superficie, tu entorno de trabajo y tu necesidad. Te ayudamos a elegir la solución correcta.",
     ctaBandBtn: "Solicitar asesoramiento",
@@ -72,7 +72,7 @@ const STR = {
     heroTitle: "Industrial climate control, cooling and thermal protection equipment.",
     heroSubtitle: "Portable air conditioning, evaporative coolers, misting fans, industrial ventilation and cooling workwear. One catalog, one datasheet per unit.",
     statTotal: "Products in catalog", statCategorias: "Product families",
-    statFotos: "With photo uploaded", statPrecios: "With price set",
+    statFotos: "Up to 15 °C cooler in optimal conditions", statPrecios: "No building work: portable units on a standard plug",
     ctaBandTitle: "Can't find the right equipment for your space?",
     ctaBandText: "Tell us your floor area, your work environment and your needs. We'll help you pick the right solution.",
     ctaBandBtn: "Request advice",
@@ -394,10 +394,8 @@ function renderIndex() {
 
   document.getElementById("stat-total").textContent = PRODUCTOS.length;
   document.getElementById("stat-categorias").textContent = CATEGORIAS.length;
-  const conFoto = PRODUCTOS.filter((p) => p.imagen).length;
-  const conPrecio = PRODUCTOS.filter((p) => p.pvp !== null && p.pvp !== undefined).length;
-  document.getElementById("stat-fotos").textContent = `${conFoto}/${PRODUCTOS.length}`;
-  document.getElementById("stat-precios").textContent = `${conPrecio}/${PRODUCTOS.length}`;
+  document.getElementById("stat-fotos").textContent = "−15 °C";
+  document.getElementById("stat-precios").textContent = "0 " + (lang() === "en" ? "works" : "obras");
 
   document.documentElement.lang = lang();
 }

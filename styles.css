@@ -391,7 +391,7 @@ button { font-family: inherit; }
 .hero-stats div:nth-child(2n) { border-right: none; }
 .hero-stats div:nth-child(3), .hero-stats div:nth-child(4) { border-bottom: none; }
 .hero-stats .num { display: block; font-family: var(--font-mono); font-size: 22px; color: var(--green); }
-.hero-stats .lbl { display: block; font-size: 12.5px; color: var(--ink-soft); margin-top: 2px; }
+.hero-stats .lbl { display: block; font-size: 12.5px; color: var(--ink-soft); margin-top: 2px; line-height: 1.35; }
 
 /* =========================================================
    NAVEGACIÓN DE CATEGORÍAS
