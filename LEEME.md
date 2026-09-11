@@ -3,11 +3,27 @@
 ## Archivos
 - `index.html` — página principal (grid por familia de producto, 8 familias).
 - `producto.html` — plantilla única que genera la ficha de **cualquier** equipo según el parámetro `?id=` en la URL.
+- `contacto.html` — página de contacto (email, teléfono, WhatsApp, dirección con enlace a Google Maps).
 - `productos.js` — **el único fichero que necesitas editar a mano** para fotos y ampliar fichas técnicas. Los precios ya están cargados desde la tarifa.
-- `catalogo.js` — lógica de renderizado, cálculo de IVA e interruptor (no hace falta tocarlo).
-- `styles.css` — estilos (no hace falta tocarlo).
-- `generar_productos.py` — script que generó `productos.js` a partir de `TARIFA_BLIZZCOOL_NETOS_Y_REVENDEDORES.xlsx`. Solo hace falta si en el futuro quieres regenerar todo el catálogo desde una tarifa nueva; para cambios puntuales, edita `productos.js` directamente.
+- `catalogo.js` — lógica de renderizado, cabecera/menú compartidos, IVA e idioma (no hace falta tocarlo salvo para cambiar textos de interfaz).
+- `styles.css` — estilos, incluido el menú hamburguesa en móvil (no hace falta tocarlo).
+- `generar_productos.py` — script que generó `productos.js` a partir de `TARIFA_BLIZZCOOL_NETOS_Y_REVENDEDORES.xlsx`, incluida la traducción al inglés. Solo hace falta si en el futuro quieres regenerar todo el catálogo desde una tarifa nueva; para cambios puntuales, edita `productos.js` directamente.
 - `img/` — carpeta para las fotos de los equipos.
+
+## Idioma (ES/EN)
+El botón "EN" / "ES" de la cabecera (y del menú móvil) cambia el idioma de toda la web al vuelo, sin recargar: textos de interfaz, categorías, y para cada producto su resumen, descripción, ficha técnica y aplicaciones. El idioma elegido se recuerda en el navegador (localStorage).
+
+Para añadir o corregir la traducción de un producto, en `productos.js` cada ficha tiene su pareja en español y en inglés:
+```js
+resumen: "...",       resumenEn: "...",
+descripcion: "...",   descripcionEn: "...",
+specs: [...],         specsEn: [...],
+aplicaciones: [...],  aplicacionesEn: [...],
+```
+Si algún día regeneras el catálogo con `generar_productos.py`, las traducciones viven en los diccionarios `RESUMEN_EN`, `DESCRIPCION_EN`, `LABEL_EN`, `VALUE_EN` y la función `apl_en()` — edítalos ahí para que sobrevivan a una regeneración.
+
+## Menú móvil
+En pantallas estrechas, la cabecera se reduce a logo + botón hamburguesa. Al abrirlo aparecen los enlaces (Inicio/Catálogo/Contacto), el interruptor de IVA, el selector de idioma y los datos de contacto. Se cierra solo al tocar un enlace.
 
 ## Precios e IVA
 - Cada producto tiene un campo `pvp`: es el precio de la columna **PVP** de la tarifa, **siempre sin IVA**.

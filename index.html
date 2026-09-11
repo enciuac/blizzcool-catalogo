@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Catálogo de equipos · Blizzcool</title>
-<meta name="description" content="Catálogo técnico de equipos Blizzcool: aire acondicionado industrial portátil, enfriadores evaporativos, nebulizadores, ventiladores industriales y ropa térmica.">
+<meta name="description" content="Catálogo técnico de equipos Blizzcool: aire acondicionado industrial portátil, enfriadores evaporativos, nebulizadores, ventilación industrial y ropa térmica.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -12,35 +12,24 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="wrap">
-    <a class="wordmark" href="index.html"><img src="https://blizzcool.es/wp-content/uploads/2025/12/cropped-cropped-LOGO-3-600x78-1.avif" alt="Blizzcool" class="logo-img"></a>
-    <div class="header-right">
-      <div id="iva-toggle-mount"></div>
-      <div class="header-meta">
-        <a href="mailto:info@blizzcool.es">info@blizzcool.es</a> · <a href="tel:+34617879087">+34 617 879 087</a><br>
-        C/ Segorbe 45, P.I. Carrús — Elche (Alicante)
-      </div>
-    </div>
-  </div>
-</header>
+<header class="site-header" id="site-header"></header>
 
 <section class="hero">
   <div class="wrap">
     <div>
-      <h1>Equipos de climatización, frío y protección térmica industrial.</h1>
-      <p>Aire acondicionado portátil, enfriadores evaporativos, nebulizadores, ventilación industrial y ropa refrigerante. Un catálogo, una ficha técnica por equipo.</p>
+      <h1 id="hero-title"></h1>
+      <p id="hero-subtitle"></p>
     </div>
     <div class="hero-stats">
-      <div><span class="num" id="stat-total">–</span><span class="lbl">Equipos en catálogo</span></div>
-      <div><span class="num" id="stat-categorias">–</span><span class="lbl">Familias de producto</span></div>
-      <div><span class="num" id="stat-fotos">–</span><span class="lbl">Con foto cargada</span></div>
-      <div><span class="num" id="stat-precios">–</span><span class="lbl">Con precio fijado</span></div>
+      <div><span class="num" id="stat-total">–</span><span class="lbl" id="stat-total-label"></span></div>
+      <div><span class="num" id="stat-categorias">–</span><span class="lbl" id="stat-categorias-label"></span></div>
+      <div><span class="num" id="stat-fotos">–</span><span class="lbl" id="stat-fotos-label"></span></div>
+      <div><span class="num" id="stat-precios">–</span><span class="lbl" id="stat-precios-label"></span></div>
     </div>
   </div>
 </section>
 
-<nav class="cat-nav">
+<nav class="cat-nav" id="catalogo-top">
   <div class="wrap" id="cat-nav-list"></div>
 </nav>
 
@@ -49,22 +38,20 @@
 <section class="cta-band">
   <div class="wrap">
     <div>
-      <h3>¿No encuentras el equipo adecuado para tu espacio?</h3>
-      <p>Cuéntanos tu superficie, tu entorno de trabajo y tu necesidad. Te ayudamos a elegir la solución correcta.</p>
+      <h3 id="cta-band-title"></h3>
+      <p id="cta-band-text"></p>
     </div>
-    <a class="btn" href="mailto:info@blizzcool.es?subject=Consulta de equipo Blizzcool">Solicitar asesoramiento</a>
+    <a class="btn" id="cta-band-btn-link" href="mailto:info@blizzcool.es?subject=Consulta de equipo Blizzcool"><span id="cta-band-btn"></span></a>
   </div>
 </section>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <span>© Blizzcool (Toolsplace, S.L.) — catálogo interno</span>
-    <span>+34 617 879 087 · blizzcool.es</span>
-  </div>
-</footer>
+<footer class="site-footer" id="site-footer"></footer>
 
 <script src="productos.js"></script>
 <script src="catalogo.js"></script>
-<script>renderIndex();</script>
+<script>
+  window.renderPage = renderIndex;
+  renderPage();
+</script>
 </body>
 </html>

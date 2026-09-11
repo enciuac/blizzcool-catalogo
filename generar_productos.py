@@ -410,6 +410,214 @@ for p in PRODUCTOS:
     if p["id"] in IMAGENES:
         p["imagen"] = IMAGENES[p["id"]]
 
+# ---------- Traducciones al inglés ----------
+
+CATEGORIA_EN = {
+    "aire-acondicionado": "Portable industrial air conditioning",
+    "enfriadores-evaporativos": "Industrial evaporative coolers",
+    "nebulizadores": "Industrial misting fans",
+    "ventiladores-techo": "Industrial ceiling fans",
+    "ventiladores-portatiles": "Portable industrial fans",
+    "ventiladores-pared": "Industrial wall fans",
+    "ropa-termica": "Thermal & cooling workwear",
+    "recambios": "Spare parts & after-sales",
+}
+for c in CATEGORIAS:
+    c["nombreEn"] = CATEGORIA_EN.get(c["id"], c["nombre"])
+
+LABEL_EN = {
+    "Alimentación": "Power supply", "Capacidad frigorífica": "Cooling capacity",
+    "Potencia nominal": "Rated power", "Corriente nominal": "Rated current",
+    "Caudal de aire": "Air flow", "Refrigerante": "Refrigerant",
+    "Ambiente de servicio": "Operating range", "Nivel sonoro": "Noise level",
+    "Dimensiones": "Dimensions", "Peso neto / bruto": "Net / gross weight",
+    "Peso neto": "Net weight", "Superficie recomendada": "Recommended area",
+    "Tipo": "Type", "Clima recomendado": "Recommended climate",
+    "Reducción de temperatura": "Temperature drop", "Consumo estimado": "Estimated consumption",
+    "Extra": "Extra", "Capacidad de depósito": "Tank capacity",
+    "Tamaño de gota": "Droplet size", "Rendimiento óptimo": "Optimal performance",
+    "Cobertura": "Coverage", "Diámetro": "Diameter", "Serie": "Series",
+    "Motor": "Motor", "Movilidad": "Mobility", "Tecnología": "Technology",
+    "Efecto de enfriamiento": "Cooling effect", "Autonomía por activación": "Runtime per activation",
+    "Reactivación": "Reactivation", "Talla": "Size",
+    "Regeneración en nevera (4–10 °C)": "Fridge recharge (4–10 °C)",
+    "Regeneración en congelador": "Freezer recharge", "Incluye": "Includes",
+    "Compatible con": "Compatible with", "Unidades": "Units",
+}
+VALUE_EN = {
+    "Con ruedas": "On wheels", "Ecológico": "Eco-friendly",
+    "Sin obra — enchufe + tubo de evacuación": "No works needed — plug in + exhaust duct",
+    "Hasta 45 °C": "Up to 45 °C", "Enfriador evaporativo": "Evaporative cooler",
+    "Sin gases — solo agua y aire": "No gases — water and air only",
+    "Seco — humedad relativa por debajo del 60%": "Dry — relative humidity below 60%",
+    "Sistema anti-bacterias integrado": "Integrated anti-bacterial system",
+    "Enchufe estándar": "Standard plug socket",
+    "Techo, alto volumen / baja velocidad": "Ceiling, high volume / low speed (HVLS)",
+    "BWP (profesional)": "BWP (professional)",
+    "BLDC sin escobillas": "Brushless DC (BLDC)",
+    "Ruedas industriales — reubicación sin herramientas": "Industrial castors — tool-free relocation",
+    "Ruedas industriales": "Industrial castors",
+    "Ventilador industrial de pared": "Industrial wall fan",
+    "Evaporativa (tejido técnico + agua)": "Evaporative (technical fabric + water)",
+    "Hasta 15 °C por debajo de la temperatura ambiente": "Up to 15 °C below ambient temperature",
+    "Volver a mojar el tejido": "Re-soak the fabric",
+    "Única": "One size",
+    "Bandas reflectantes de alta visibilidad": "High-visibility reflective bands",
+    "Placas PCM (material de cambio de fase)": "PCM plates (phase change material)",
+    "Más rápida": "Faster",
+    "Pack de placas de recambio": "Spare plate pack",
+    "Chalecos refrigerantes PCM Blizzcool": "Blizzcool PCM cooling vests",
+    "Recambio — generador de aniones": "Spare part — anion generator",
+}
+def apl_en(s):
+    m = {
+        "Locales comerciales y oficinas en alquiler": "Rented commercial units and offices",
+        "Salas de servidores pequeñas": "Small server rooms",
+        "Equipo de emergencia ante avería de climatización fija": "Emergency backup for fixed HVAC failure",
+        "Eventos y ferias": "Events and trade fairs",
+        "Talleres y locales comerciales medianos": "Workshops and medium-sized commercial units",
+        "Salas de servidores y racks electrónicos": "Server rooms and electronic racks",
+        "Talleres y almacenes": "Workshops and warehouses",
+        "Fábricas": "Factories",
+        "Eventos, ferias y exposiciones": "Events, trade fairs and exhibitions",
+        "Naves industriales de gran superficie": "Large-footprint industrial buildings",
+        "Salas de servidores y centros de datos": "Server rooms and data centres",
+        "Locales comerciales grandes": "Large commercial premises",
+        "Talleres y almacenes medianos": "Medium-sized workshops and warehouses",
+        "Locales comerciales": "Commercial premises",
+        "Espacios deportivos": "Sports facilities",
+        "Naves y talleres": "Industrial buildings and workshops",
+        "Almacenes y centros logísticos": "Warehouses and logistics centres",
+        "Terrazas de hostelería": "Hospitality terraces",
+        "Naves industriales y de producción": "Industrial and production buildings",
+        "Talleres mecánicos y de carrocería": "Mechanical and bodywork workshops",
+        "Gimnasios y espacios deportivos": "Gyms and sports facilities",
+        "Naves industriales y logística": "Industrial and logistics buildings",
+        "Hostelería y terrazas": "Hospitality venues and terraces",
+        "Eventos deportivos y culturales": "Sports and cultural events",
+        "Pabellones y campus deportivos sin climatización centralizada": "Sports halls and campuses without central HVAC",
+        "Eventos y ferias exteriores": "Outdoor events and trade fairs",
+        "Zonas VIP y áreas de calentamiento": "VIP areas and warm-up zones",
+        "Naves industriales de gran altura": "High-ceiling industrial buildings",
+        "Complemento de climatización existente": "Complement to existing HVAC",
+        "Naves industriales de gran volumen": "Large-volume industrial buildings",
+        "Centros logísticos": "Logistics centres",
+        "Pabellones y grandes superficies": "Sports halls and large venues",
+        "Naves con puertas abiertas o ventilación natural": "Buildings with open doors or natural ventilation",
+        "Talleres": "Workshops",
+        "Almacenes con tráfico constante de mercancía": "Warehouses with constant goods traffic",
+        "Naves y almacenes de mayor superficie": "Larger industrial buildings and warehouses",
+        "Almacenes": "Warehouses",
+        "Naves con ventilación natural": "Buildings with natural ventilation",
+        "Naves industriales": "Industrial buildings",
+        "Almacenes de gran superficie": "Large-footprint warehouses",
+        "Construcción y obras públicas": "Construction and public works",
+        "Agricultura": "Agriculture",
+        "Logística al aire libre": "Outdoor logistics",
+        "Servicios municipales y limpieza viaria": "Municipal services and street cleaning",
+        "Obras públicas y vía pública": "Public works and roadside work",
+        "Transporte y reparto": "Transport and delivery",
+        "Trabajo nocturno o con baja visibilidad": "Night work or low-visibility conditions",
+        "Interiores sin flujo de aire": "Indoor spaces with no airflow",
+        "Bajo ropa de protección (EPI)": "Under PPE / protective clothing",
+        "Hornos, fundición, soldadura": "Furnaces, foundries, welding",
+    }
+    return m.get(s, s)
+
+def label_en(s): return LABEL_EN.get(s, s)
+def value_en(s): return VALUE_EN.get(s, s)
+
+RESUMEN_EN = {
+    "ac-1900-1": "Compact spot cooler for medium-sized spaces, offices and premises with no building work.",
+    "ac-2700-1": "Mid-range spot cooler for workshops and medium-sized premises.",
+    "ac-3500-2": "3,500 frigories for workshops, warehouses and mid-sized factories.",
+    "ac-5300-3": "The highest-capacity unit in the range, for large floor areas.",
+    "bc-200": "Entry-level evaporative cooler for medium-sized spaces.",
+    "bc-290": "Mid-range evaporative cooler, higher airflow than the BC 200.",
+    "bc-395": "High-airflow evaporative cooler for industrial buildings and large spaces.",
+    "bsm-160l": "High-flow misting fan with a 160-litre tank for full working days.",
+    "bsm-380l": "Maximum runtime in the range: 380-litre tank for events and large spaces.",
+    "fam240": "Large-diameter ceiling fan, entry point of the FAM series.",
+    "fam300": "Ceiling fan from the FAM series, one step up from the FAM240.",
+    "fam370": "Large-diameter ceiling fan for spacious industrial buildings.",
+    "fam430": "Ceiling fan from the professional BWP series, large diameter.",
+    "fam500": "Ceiling fan from the professional BWP series, large diameter.",
+    "fam610": "The largest diameter in the professional BWP series.",
+    "gd-120": "Mobile floor fan with a low-consumption BLDC motor.",
+    "gd-150": "Mobile fan with a larger diameter than the GD 120.",
+    "gd-200": "The largest-diameter unit in the portable GD series.",
+    "bp-600": "Entry-level industrial wall fan.",
+    "bp-900": "Industrial wall fan with higher airflow than the BP 600.",
+    "bp-1200": "The highest-airflow unit in the BP wall fan series.",
+    "bw05": "Evaporative technology: activated with water, cools up to 15 °C below ambient.",
+    "bw08": "Same evaporative technology as the BW-05, with high-visibility reflective bands.",
+    "bw01-pcm": "Phase-change plates: stable, constant cold with no moisture or dripping.",
+    "bw04": "Cooling vest from the BW range, available in several sizes.",
+    "bw02-pcm": "PCM vest with plate pack included, one size.",
+    "bomba-bc200-bc290": "Replacement water pump for the BC200 and BC290 evaporative coolers.",
+    "bomba-bc395": "Replacement water pump for the BC395 evaporative cooler.",
+    "filtros-bc200": "Replacement filters for the BC200 evaporative cooler.",
+    "filtros-bc290": "Replacement filters for the BC290 evaporative cooler.",
+    "filtros-bc395": "Replacement filters for the BC395 evaporative cooler.",
+    "generador-anion": "Replacement anion generator for Blizzcool evaporative coolers.",
+    "panel-control-bc": "Replacement control panel for the full BC cooler range.",
+    "helice-bc200": "Replacement fan blade for the BC200 evaporative cooler.",
+    "helice-bc290": "Replacement fan blade for the BC290 evaporative cooler.",
+    "helice-bc395": "Replacement fan blade for the BC395 evaporative cooler.",
+    "parrilla-bc200": "Replacement grille for the BC200 evaporative cooler.",
+    "parrilla-bc290": "Replacement grille for the BC290 evaporative cooler.",
+    "parrilla-bc395": "Replacement grille for the BC395 evaporative cooler.",
+    "pack-pc01": "Pack of 4 replacement PCM cooling plates for cooling vests.",
+}
+DESCRIPCION_EN = {
+    "ac-1900-1": "Portable compressor air conditioner, ready to cool with a standard plug and an exhaust duct to the outside. Designed for commercial premises, rented offices, or as a backup unit when a fixed system fails.",
+    "ac-2700-1": "The second step in the Blizzcool spot cooler range, between the AC-1900/1 and the AC-3500/2. Compressor cooling, portable and with no need for fixed installation. Also the usual choice for server rooms thanks to its low consumption.",
+    "ac-3500-2": "High-performance, low-consumption compressor cooling system, designed to run continuously in demanding environments. Portable, on wheels, with no need for fixed installation.",
+    "ac-5300-3": "The top-performing model in the Blizzcool spot cooler range. High-performance compressor cooling for large industrial buildings and premises, operational the same day with no building work or permits.",
+    "bc-200": "Water-evaporation climate control unit: draws in hot air, passes it through wet pads and returns it cooler, with no refrigerant gases or compressor. Electricity consumption far lower than an equivalent air conditioner.",
+    "bc-290": "Water-evaporation climate control unit, one step above the BC 200 in airflow. No refrigerant gases or compressor, with running costs far lower than traditional air conditioning.",
+    "bc-395": "Water-evaporation climate control unit: draws in hot air, passes it through wet pads and returns it up to 15 °C cooler, with no refrigerant gases or compressor. Electricity consumption far lower than an equivalent air conditioner.",
+    "bsm-160l": "Fine-droplet misting system (under 10 microns) that guarantees full evaporation without wetting people or surfaces. Runs off a standard plug socket, with no dedicated electrical installation.",
+    "bsm-380l": "The largest-tank model in the Blizzcool misting fan range, designed for full working days or events with no refills, covering up to 250 m² per unit.",
+    "fam240": "High-volume, low-speed ceiling fan. Moves large volumes of air with far lower consumption than an equivalent-power HVAC unit, without needing to cool the whole volume of the building.",
+    "fam300": "High-volume, low-speed ceiling fan, with a larger diameter than the FAM240 to cover wider areas.",
+    "fam370": "High-volume, low-speed ceiling fan, designed for larger-floor-area buildings than the FAM240 and FAM300 models.",
+    "fam430": "A model from the professional BWP series, with greater diameter and airflow than the standard FAM series. Designed for large-volume buildings.",
+    "fam500": "A 5,000 mm-diameter model from the professional BWP series, to cover large areas with a single unit.",
+    "fam610": "The largest-diameter model in the BWP series, for the largest buildings and spaces in the Blizzcool ceiling fan range.",
+    "gd-120": "Portable fan designed from the ground up to move air across hundreds or thousands of m², not a converted domestic unit. BLDC (brushless DC motor) technology delivers high airflow with minimal consumption.",
+    "gd-150": "A larger-diameter model from the GD series, with a low-consumption BLDC motor and industrial castors for immediate relocation.",
+    "gd-200": "The highest-airflow unit in the portable GD fan series, for large-floor-area spaces that need total mobility.",
+    "bp-600": "Wall fan for forced ventilation in spaces that can't hold the cold air from a climate control unit: buildings with open doors, workshops with natural ventilation, or warehouses with constant traffic.",
+    "bp-900": "A higher-airflow model from the BP series, for wall-mounted applications where more air volume needs to be moved.",
+    "bp-1200": "The top-performing model in the BP wall fan series, for buildings and wall-mounted applications that need maximum forced-ventilation airflow.",
+    "bw05": "Evaporative-technology vest: soak it in water for one or two minutes and the technical fabric releases moisture gradually. Especially effective outdoors with airflow.",
+    "bw08": "Vest with high-visibility reflective bands for environments that require them, keeping the same evaporative, breathable technology as the BW range.",
+    "bw01-pcm": "Garment with PCM (Phase Change Material) plates that absorb heat while holding a constant, preset temperature during the phase change. Ideal for indoor spaces with little airflow or under protective clothing.",
+    "bw04": "Evaporative-technology cooling vest from the Blizzcool range, in the version without reflective bands.",
+    "bw02-pcm": "PCM vest version that includes a spare plate pack, to alternate cooling cycles without interrupting the work shift.",
+    "bomba-bc200-bc290": "Original Blizzcool spare part for the water circuit of the BC200 and BC290 evaporative coolers.",
+    "bomba-bc395": "Original Blizzcool spare part for the water circuit of the BC395 evaporative cooler.",
+    "filtros-bc200": "Pack of 3 original Blizzcool replacement filters for the BC200 evaporative cooler.",
+    "filtros-bc290": "Pack of 3 original Blizzcool replacement filters for the BC290 evaporative cooler.",
+    "filtros-bc395": "Pack of 3 original Blizzcool replacement filters for the BC395 evaporative cooler.",
+    "generador-anion": "Original Blizzcool spare part for the anion-generation system built into the evaporative coolers.",
+    "panel-control-bc": "Original Blizzcool replacement control panel, compatible with all three models in the BC evaporative cooler range.",
+    "helice-bc200": "Original Blizzcool spare part for the BC200 evaporative cooler.",
+    "helice-bc290": "Original Blizzcool spare part for the BC290 evaporative cooler.",
+    "helice-bc395": "Original Blizzcool spare part for the BC395 evaporative cooler.",
+    "parrilla-bc200": "Original Blizzcool spare part for the BC200 evaporative cooler.",
+    "parrilla-bc290": "Original Blizzcool spare part for the BC290 evaporative cooler.",
+    "parrilla-bc395": "Original Blizzcool spare part for the BC395 evaporative cooler.",
+    "pack-pc01": "Pack of 4 replacement PCM plates, compatible with the Blizzcool PCM cooling vest range, to keep a spare set and alternate cycles without interrupting the shift.",
+}
+
+for p in PRODUCTOS:
+    p["resumenEn"] = RESUMEN_EN.get(p["id"], p["resumen"])
+    p["descripcionEn"] = DESCRIPCION_EN.get(p["id"], p["descripcion"])
+    p["specsEn"] = [{"label": label_en(s["label"]), "value": value_en(s["value"])} for s in p["specs"]]
+    p["aplicacionesEn"] = [apl_en(a) for a in p["aplicaciones"]]
+
 # ---------- Escribir productos.js ----------
 
 def js_str(v):
@@ -456,7 +664,7 @@ lines.append(" */")
 lines.append("")
 lines.append("const CATEGORIAS = [")
 for c in CATEGORIAS:
-    lines.append(f'  {{ id: {js_str(c["id"])}, nombre: {js_str(c["nombre"])} }},')
+    lines.append(f'  {{ id: {js_str(c["id"])}, nombre: {js_str(c["nombre"])}, nombreEn: {js_str(c["nombreEn"])} }},')
 lines.append("];")
 lines.append("")
 lines.append("const PRODUCTOS = [")
@@ -472,14 +680,18 @@ for p in PRODUCTOS:
     lines.append(f'    categoria: {js_str(p["categoria"])},')
     lines.append(f'    nombre: {js_str(p["nombre"])},')
     lines.append(f'    resumen: {js_str(p["resumen"])},')
+    lines.append(f'    resumenEn: {js_str(p["resumenEn"])},')
     lines.append(f'    imagen: {js_str(p["imagen"])},')
     lines.append(f'    pvp: {js_str(p["pvp"])},')
     lines.append(f'    sageTools: {js_str(p["sageTools"])},')
     lines.append(f'    gid: {js_str(p["gid"])},')
     lines.append(f'    destacado: {"true" if p["destacado"] else "false"},')
     lines.append(f'    descripcion: {js_str(p["descripcion"])},')
+    lines.append(f'    descripcionEn: {js_str(p["descripcionEn"])},')
     lines.append(f'    specs: {js_specs(p["specs"])},')
+    lines.append(f'    specsEn: {js_specs(p["specsEn"])},')
     lines.append(f'    aplicaciones: {js_list(p["aplicaciones"])},')
+    lines.append(f'    aplicacionesEn: {js_list(p["aplicacionesEn"])},')
     lines.append(f'    variantes: {js_variantes(p["variantes"])},')
     lines.append("  },")
 lines.append("];")

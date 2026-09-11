@@ -48,42 +48,158 @@ img { max-width: 100%; display: block; }
 .site-header {
   border-bottom: 1px solid var(--line);
   background: var(--bg-card);
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
-.site-header .wrap {
+.header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 76px;
-  gap: 20px;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 22px;
+  height: 72px;
+  gap: 24px;
 }
 
 .wordmark {
   display: flex;
   align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .logo-img {
-  height: 32px;
+  height: 30px;
   width: auto;
   display: block;
 }
 
+.site-nav {
+  display: flex;
+  gap: 26px;
+  flex: 1;
+}
+
+.site-nav a {
+  font-size: 14.5px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.site-nav a:hover, .site-nav a.active { color: var(--ink); }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+}
+
 .header-meta {
   font-family: var(--font-mono);
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--ink-soft);
   text-align: right;
+  white-space: nowrap;
 }
 
 .header-meta a { color: var(--blue); text-decoration: none; }
+
+.lang-toggle {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 5px 9px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.lang-toggle:hover { border-color: var(--blue); color: var(--blue); }
+
+/* ---------- Menú hamburguesa (móvil) ---------- */
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--ink);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-toggle.open span:nth-child(2) { opacity: 0; }
+.menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  max-height: 0;
+  overflow: hidden;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--line);
+  transition: max-height 0.25s ease;
+}
+
+.mobile-menu.open { max-height: 480px; }
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 24px 4px;
+}
+
+.mobile-nav a {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.mobile-nav a:last-child { border-bottom: none; }
+
+.mobile-menu-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.mobile-menu-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 24px 20px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+
+.mobile-menu-contact a { color: var(--blue); text-decoration: none; }
+
+body.menu-open { overflow: hidden; }
 
 /* ---------- Interruptor de IVA ---------- */
 
@@ -210,7 +326,7 @@ img { max-width: 100%; display: block; }
 
 .cat-nav {
   position: sticky;
-  top: 0;
+  top: 73px;
   z-index: 5;
   background: var(--bg-card);
   border-bottom: 1px solid var(--line);
@@ -560,6 +676,90 @@ img { max-width: 100%; display: block; }
   border: 1px solid var(--line);
 }
 
+/* ---------- Página de contacto ---------- */
+
+.contact-hero {
+  padding: 48px 0 8px;
+}
+
+.contact-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(30px, 4vw, 40px);
+  margin: 0 0 10px;
+}
+
+.contact-hero p {
+  color: var(--ink-soft);
+  font-size: 16px;
+  max-width: 52ch;
+  margin: 0;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin: 32px auto 8px;
+}
+
+.contact-card {
+  background: var(--bg-card);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-card-wide { grid-column: 1 / -1; }
+
+.contact-label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-faint);
+}
+
+.contact-value {
+  font-size: 16px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.contact-directions {
+  margin-top: 4px;
+  font-size: 13.5px;
+}
+
+.contact-actions {
+  padding: 8px 0 56px;
+}
+
+.contact-panel {
+  max-width: 480px;
+  margin: 0;
+}
+
+.contact-panel h2 {
+  font-family: var(--font-head);
+  font-size: 19px;
+  margin: 0 0 10px;
+}
+
+.contact-panel p {
+  color: var(--ink-soft);
+  font-size: 14px;
+  margin: 0 0 18px;
+}
+
+.contact-panel .btn { display: block; text-align: center; margin-bottom: 10px; }
+.contact-panel .btn:last-child { margin-bottom: 0; }
+.contact-panel .btn-outline {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 880px) {
@@ -569,6 +769,13 @@ img { max-width: 100%; display: block; }
   .related { grid-template-columns: repeat(2, 1fr); }
   .tag-list { grid-template-columns: 1fr; }
   .cta-band .wrap { flex-direction: column; align-items: flex-start; }
+
+  .site-nav, .header-right { display: none; }
+  .menu-toggle { display: flex; }
+  .mobile-menu { display: block; }
+  .header-bar { height: 64px; }
+  .header-right { gap: 10px; }
+  .cat-nav { top: 65px; }
 }
 
 @media (max-width: 560px) {
@@ -577,8 +784,6 @@ img { max-width: 100%; display: block; }
   .hero-stats { grid-template-columns: 1fr; }
   .hero-stats div { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
   .hero-stats div:last-child { border-bottom: none !important; }
-  .site-header .wrap { height: auto; flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 24px; }
-  .header-meta { text-align: left; }
-  .header-right { width: 100%; justify-content: space-between; flex-direction: row-reverse; }
   .specs-table td:first-child { width: 46%; }
+  .contact-grid { grid-template-columns: 1fr; }
 }
