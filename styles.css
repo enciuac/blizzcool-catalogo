@@ -606,6 +606,31 @@ body.has-buy-bar .site-footer { padding-bottom: 100px; }
   color: var(--ink-faint);
 }
 
+/* ---------- Botón flotante de WhatsApp ---------- */
+
+.wa-float {
+  position: fixed;
+  right: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 34;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 22px rgba(27, 36, 51, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.wa-float:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(27, 36, 51, 0.3); }
+.wa-float svg { display: block; }
+
+/* En fichas de producto, en móvil, sube por encima de la barra fija de compra */
+body.has-buy-bar .wa-float { bottom: calc(86px + env(safe-area-inset-bottom)); }
+
 /* =========================================================
    FICHA DE PRODUCTO
    ========================================================= */
@@ -815,6 +840,8 @@ body.has-buy-bar .site-footer { padding-bottom: 100px; }
   .product-hero { grid-template-columns: 1.05fr 0.95fr; gap: 40px; padding-top: 20px; padding-bottom: 48px; }
   .product-media { position: sticky; top: calc(var(--header-h) + 20px); }
   .mobile-buy-bar { display: none; }
+  body.has-buy-bar .wa-float { bottom: 24px; }
+  .wa-float { right: 24px; bottom: 24px; }
   .specs-table td { padding: 12px 16px; }
   .section-block h2 { font-size: 20px; margin-top: 32px; }
 }
