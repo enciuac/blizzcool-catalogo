@@ -62,6 +62,8 @@ const STR = {
     contactoFormText: "Este botón abre tu programa de correo con el destinatario ya rellenado.",
     contactoEscribirEmail: "Escribir un email",
     contactoAbrirWhatsapp: "Abrir WhatsApp",
+    drawerMenu: "Menú", drawerFamilias: "Familias de producto",
+    drawerWhatsapp: "Escríbenos por WhatsApp",
   },
   en: {
     navInicio: "Home", navCatalogo: "Catalog", navContacto: "Contact",
@@ -103,6 +105,8 @@ const STR = {
     contactoFormText: "This button opens your email app with the recipient already filled in.",
     contactoEscribirEmail: "Write an email",
     contactoAbrirWhatsapp: "Open WhatsApp",
+    drawerMenu: "Menu", drawerFamilias: "Product families",
+    drawerWhatsapp: "Message us on WhatsApp",
   },
 };
 function t(key) {
@@ -131,7 +135,7 @@ function calcularPrecio(pvp) {
   if (Number.isNaN(num)) return { texto: String(pvp), pendiente: false };
   const conIva = ivaActivo();
   const total = conIva ? num * (1 + IVA) : num;
-  const localeStr = lang() === "en" ? "en-IE" : "es-ES";
+  const localeStr = lang() === "en" ? "en-IE" : "de-DE"; // de-DE fuerza el punto de millares (2.189,00 €) también en 4 cifras
   const texto = total.toLocaleString(localeStr, { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 });
   return { texto, pendiente: false, conIva };
 }
@@ -167,9 +171,11 @@ function cardHTML(p) {
   return `
     <a class="card" href="producto.html?id=${p.id}">
       <div class="card-media">${mediaHTML(p, p.nombre)}</div>
-      <div class="card-model">${p.id.toUpperCase()}</div>
-      <h3 class="card-title">${p.nombre}</h3>
-      <p class="card-summary">${textoProducto(p, "resumen")}</p>
+      <div class="card-body">
+        <div class="card-model">${p.id.toUpperCase()}</div>
+        <h3 class="card-title">${p.nombre}</h3>
+        <p class="card-summary">${textoProducto(p, "resumen")}</p>
+      </div>
       <div class="card-foot">
         <span class="price ${precio.pendiente ? "pending" : ""}" data-pvp="${p.pvp ?? ""}">${precio.texto}<span class="iva-note">${nota}</span></span>
         <span class="link-inline">${t("fichaTecnicaLink")}</span>
@@ -210,8 +216,17 @@ function chromeHTML(activeKey) {
       </button>
     </div>
 
-    <div id="mobile-menu" class="mobile-menu">
+    <div id="drawer-backdrop" class="drawer-backdrop"></div>
+    <aside id="mobile-menu" class="mobile-menu" aria-label="${t("drawerMenu")}">
+      <div class="drawer-head">
+        <img src="https://blizzcool.es/wp-content/uploads/2025/12/cropped-cropped-LOGO-3-600x78-1.avif" alt="Blizzcool" class="logo-img">
+        <button type="button" id="drawer-close" class="drawer-close" aria-label="Cerrar">×</button>
+      </div>
       <nav class="mobile-nav">${navHTML}</nav>
+      <div class="drawer-section-title">${t("drawerFamilias")}</div>
+      <div class="drawer-cats">
+        ${CATEGORIAS.map((c) => `<a href="index.html#${c.id}">${nombreCategoria(c.id)}</a>`).join("")}
+      </div>
       <div class="mobile-menu-row">
         <div id="iva-toggle-mount-mobile"></div>
         <button type="button" id="lang-toggle-mobile" class="lang-toggle">${L === "es" ? "EN" : "ES"}</button>
@@ -220,7 +235,16 @@ function chromeHTML(activeKey) {
         <a href="mailto:${CONTACTO.email}">${CONTACTO.email}</a>
         <a href="tel:${CONTACTO.telefono}">${CONTACTO.telefonoDisplay}</a>
         <span>${CONTACTO.direccion}</span>
+        <a class="btn-wa" href="${CONTACTO.whatsapp}" target="_blank" rel="noopener">${t("drawerWhatsapp")}</a>
       </div>
+    </aside>`;
+}
+
+function toolbarInlineHTML() {
+  return `
+    <div class="toolbar-inline">
+      <div id="iva-toggle-mount-inline"></div>
+      <button type="button" id="lang-toggle-inline" class="lang-toggle">${lang() === "es" ? "EN" : "ES"}</button>
     </div>`;
 }
 
@@ -271,7 +295,10 @@ function initChrome(activeKey) {
   if (header) header.innerHTML = chromeHTML(activeKey);
   if (footer) footer.innerHTML = footerHTML();
 
-  ["iva-toggle-mount", "iva-toggle-mount-mobile"].forEach((id) => {
+  const toolbarMount = document.getElementById("toolbar-inline");
+  if (toolbarMount) toolbarMount.innerHTML = toolbarInlineHTML();
+
+  ["iva-toggle-mount", "iva-toggle-mount-mobile", "iva-toggle-mount-inline"].forEach((id) => {
     const mount = document.getElementById(id);
     if (mount) mount.innerHTML = ivaToggleHTML();
   });
@@ -285,25 +312,24 @@ function initChrome(activeKey) {
 
   const menuToggle = document.getElementById("menu-toggle");
   const mobileMenu = document.getElementById("mobile-menu");
+  const backdrop = document.getElementById("drawer-backdrop");
+  const closeBtn = document.getElementById("drawer-close");
   if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener("click", () => {
-      const open = mobileMenu.classList.toggle("open");
+    const setOpen = (open) => {
+      mobileMenu.classList.toggle("open", open);
+      if (backdrop) backdrop.classList.toggle("open", open);
       menuToggle.setAttribute("aria-expanded", open);
       menuToggle.classList.toggle("open", open);
       document.body.classList.toggle("menu-open", open);
-    });
-    // Cierra el menú si se navega o cambia el tamaño a escritorio
-    mobileMenu.querySelectorAll("a").forEach((a) =>
-      a.addEventListener("click", () => {
-        mobileMenu.classList.remove("open");
-        menuToggle.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        document.body.classList.remove("menu-open");
-      })
-    );
+    };
+    menuToggle.addEventListener("click", () => setOpen(!mobileMenu.classList.contains("open")));
+    if (backdrop) backdrop.addEventListener("click", () => setOpen(false));
+    if (closeBtn) closeBtn.addEventListener("click", () => setOpen(false));
+    mobileMenu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
   }
 
-  ["lang-toggle", "lang-toggle-mobile"].forEach((id) => {
+  ["lang-toggle", "lang-toggle-mobile", "lang-toggle-inline"].forEach((id) => {
     const btn = document.getElementById(id);
     if (btn) {
       btn.addEventListener("click", () => {
@@ -426,6 +452,7 @@ function renderProducto() {
 
   const relacionados = PRODUCTOS.filter((x) => x.categoria === p.categoria && x.id !== p.id).slice(0, 3);
   const relacionadosHTML = relacionados.map(cardHTML).join("");
+  const mailtoPresupuesto = `mailto:${CONTACTO.email}?subject=${encodeURIComponent((lang() === "en" ? "Quote request: " : "Presupuesto ") + p.nombre)}`;
 
   cont.innerHTML = `
     <nav class="breadcrumb wrap">
@@ -445,10 +472,16 @@ function renderProducto() {
           <div class="price-row">
             <span class="price-big" data-pvp="${p.pvp ?? ""}"></span>
           </div>
-          <a class="btn" href="mailto:${CONTACTO.email}?subject=${encodeURIComponent((lang() === "en" ? "Quote request: " : "Presupuesto ") + p.nombre)}">${t("solicitarPresupuesto")}</a>
+          <a class="btn btn-accent" href="${mailtoPresupuesto}">${t("solicitarPresupuesto")}</a>
+          <a class="btn btn-outline" href="${CONTACTO.whatsapp}" target="_blank" rel="noopener">${t("contactoAbrirWhatsapp")}</a>
           <a class="btn btn-outline" href="index.html#${p.categoria}">${t("verMasEquipos")}</a>
         </div>
       </div>
+    </div>
+
+    <div class="mobile-buy-bar">
+      <span class="price-big" data-pvp="${p.pvp ?? ""}"></span>
+      <a class="btn btn-accent" href="${mailtoPresupuesto}">${t("solicitarPresupuesto")}</a>
     </div>
 
     <div class="wrap section-block">
@@ -512,7 +545,7 @@ function renderContacto() {
       <div class="buy-panel contact-panel">
         <h2>${t("contactoFormTitle")}</h2>
         <p>${t("contactoFormText")}</p>
-        <a class="btn" href="mailto:${CONTACTO.email}">${t("contactoEscribirEmail")}</a>
+        <a class="btn btn-accent" href="mailto:${CONTACTO.email}">${t("contactoEscribirEmail")}</a>
         <a class="btn btn-outline" href="${CONTACTO.whatsapp}" target="_blank" rel="noopener">${t("contactoAbrirWhatsapp")}</a>
       </div>
     </div>`;
