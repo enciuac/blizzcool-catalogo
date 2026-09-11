@@ -403,9 +403,9 @@ function variantesHTML(p) {
   return `
     <h2>${t("variantesTitle")}</h2>
     <p>${t("variantesText")}</p>
-    <table class="specs-table">
-      <tr><td><strong>${t("variante")}</strong></td><td><strong>${t("codigoInterno")}</strong></td></tr>
-      ${filas}
+    <table class="specs-table variants-table">
+      <thead><tr><td>${t("variante")}</td><td>${t("codigoInterno")}</td></tr></thead>
+      <tbody>${filas}</tbody>
     </table>`;
 }
 
