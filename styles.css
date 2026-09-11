@@ -198,27 +198,71 @@ button { font-family: inherit; }
 .mobile-nav a.active { color: var(--green); background: var(--green-soft); }
 .mobile-nav a.active::after { color: var(--green); }
 
-.drawer-section-title {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: var(--ink-faint);
-  padding: 14px 18px 6px;
-  border-top: 1px solid var(--line);
-  margin-top: 4px;
+.drawer-acc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 12px;
+  border: none;
+  background: none;
+  border-radius: var(--radius);
+  text-align: left;
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-size: 19px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.drawer-cats { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 18px 14px; }
+.drawer-acc::after {
+  content: "›";
+  color: var(--ink-faint);
+  font-size: 22px;
+  transition: transform 0.2s ease;
+}
+
+.drawer-acc.open { color: var(--green); background: var(--green-soft); }
+.drawer-acc.open::after { transform: rotate(90deg); color: var(--green); }
+
+.drawer-cats {
+  display: flex;
+  flex-direction: column;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.drawer-cats.open { max-height: 600px; }
 
 .drawer-cats a {
-  font-size: 13px;
-  padding: 8px 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  padding: 11px 12px 11px 26px;
   text-decoration: none;
   color: var(--ink-soft);
-  background: var(--bg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: var(--radius);
+  position: relative;
 }
+
+.drawer-cats a::after { content: none; }
+
+.drawer-cats a::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--blue-brand);
+}
+
+.drawer-cats a:active, .drawer-cats a:hover { color: var(--blue-dark); background: var(--blue-soft); }
 
 .mobile-menu-row {
   display: flex;

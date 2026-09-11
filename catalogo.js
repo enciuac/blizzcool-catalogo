@@ -222,11 +222,15 @@ function chromeHTML(activeKey) {
         <img src="https://blizzcool.es/wp-content/uploads/2025/12/cropped-cropped-LOGO-3-600x78-1.avif" alt="Blizzcool" class="logo-img">
         <button type="button" id="drawer-close" class="drawer-close" aria-label="Cerrar">×</button>
       </div>
-      <nav class="mobile-nav">${navHTML}</nav>
-      <div class="drawer-section-title">${t("drawerFamilias")}</div>
-      <div class="drawer-cats">
-        ${CATEGORIAS.map((c) => `<a href="index.html#${c.id}">${nombreCategoria(c.id)}</a>`).join("")}
-      </div>
+      <nav class="mobile-nav">
+        ${navHTML}
+        <button type="button" id="drawer-cats-toggle" class="drawer-acc" aria-expanded="false" aria-controls="drawer-cats">
+          <span>${t("drawerFamilias")}</span>
+        </button>
+        <div id="drawer-cats" class="drawer-cats">
+          ${CATEGORIAS.map((c) => `<a href="index.html#${c.id}">${nombreCategoria(c.id)}</a>`).join("")}
+        </div>
+      </nav>
       <div class="mobile-menu-row">
         <div id="iva-toggle-mount-mobile"></div>
         <button type="button" id="lang-toggle-mobile" class="lang-toggle">${L === "es" ? "EN" : "ES"}</button>
@@ -327,6 +331,16 @@ function initChrome(activeKey) {
     if (closeBtn) closeBtn.addEventListener("click", () => setOpen(false));
     mobileMenu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
+
+    const accBtn = document.getElementById("drawer-cats-toggle");
+    const accPanel = document.getElementById("drawer-cats");
+    if (accBtn && accPanel) {
+      accBtn.addEventListener("click", () => {
+        const open = accPanel.classList.toggle("open");
+        accBtn.setAttribute("aria-expanded", open);
+        accBtn.classList.toggle("open", open);
+      });
+    }
   }
 
   ["lang-toggle", "lang-toggle-mobile", "lang-toggle-inline"].forEach((id) => {
