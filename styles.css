@@ -880,3 +880,79 @@ body.has-buy-bar .float-stack { bottom: calc(86px + env(safe-area-inset-bottom))
 
 .variants-table thead td { background: var(--bg); font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-faint); letter-spacing: 0.04em; }
 .variants-table tbody td:first-child { color: var(--ink); font-weight: 500; }
+
+
+/* =========================================================
+   COMPARTIR / QR
+   ========================================================= */
+
+.btn-share {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.45);
+  background: transparent;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.site-nav-share {
+  margin-left: auto;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 7px 12px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.site-nav-share:hover { color: var(--blue); border-color: var(--blue); }
+
+.share-modal { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.share-modal[hidden] { display: none; }
+.share-backdrop { position: absolute; inset: 0; background: rgba(27, 36, 51, 0.55); }
+
+.share-card {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px 20px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 20px 60px rgba(27,36,51,0.35);
+  text-align: center;
+}
+
+.share-card .drawer-close { position: absolute; top: 12px; right: 12px; }
+.share-card h2 { font-family: var(--font-head); font-size: 20px; margin: 0 28px 6px 0; color: var(--blue-dark); text-align: left; }
+.share-card p { color: var(--ink-soft); font-size: 14px; margin: 0 0 14px; text-align: left; }
+
+.share-qr { display: flex; justify-content: center; }
+.share-qr canvas { width: min(240px, 60vw); height: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+.share-qr-fallback { color: var(--ink-faint); font-size: 13px; }
+
+.share-url {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  margin: 14px 0;
+  word-break: break-all;
+  text-align: left;
+}
+
+.share-actions { display: grid; gap: 8px; }
+.share-actions .btn { width: 100%; border: 1px solid transparent; cursor: pointer; font-family: inherit; }
+.share-actions .btn-outline { border-color: var(--line); }

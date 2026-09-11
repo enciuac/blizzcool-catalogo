@@ -66,6 +66,10 @@ const STR = {
     drawerWhatsapp: "Escríbenos por WhatsApp",
     idioma: "Idioma",
     ivaFloatOn: "incl.", ivaFloatOff: "sin",
+    compartir: "Compartir / código QR", compartirTitulo: "Compartir esta página",
+    compartirTexto: "Escanea el código con la cámara del móvil o copia el enlace.",
+    copiarEnlace: "Copiar enlace", enlaceCopiado: "Enlace copiado", compartirNativo: "Compartir…",
+    descargarQR: "Descargar QR", cerrar: "Cerrar",
   },
   en: {
     navInicio: "Home", navCatalogo: "Catalog", navContacto: "Contact",
@@ -111,6 +115,10 @@ const STR = {
     drawerWhatsapp: "Message us on WhatsApp",
     idioma: "Language",
     ivaFloatOn: "incl.", ivaFloatOff: "excl.",
+    compartir: "Share / QR code", compartirTitulo: "Share this page",
+    compartirTexto: "Scan the code with your phone camera or copy the link.",
+    copiarEnlace: "Copy link", enlaceCopiado: "Link copied", compartirNativo: "Share…",
+    descargarQR: "Download QR", cerrar: "Close",
   },
 };
 function t(key) {
@@ -196,6 +204,7 @@ function chromeHTML(activeKey) {
     { key: "catalogo", href: "index.html#catalogo-top", label: t("navCatalogo") },
     { key: "contacto", href: "contacto.html", label: t("navContacto") },
   ];
+  const shareDesktop = `<button type="button" class="site-nav-share js-share-open">${t("compartir")}</button>`;
   const navHTML = navItems
     .map((n) => `<a href="${n.href}" class="${activeKey === n.key ? "active" : ""}">${n.label}</a>`)
     .join("");
@@ -204,7 +213,7 @@ function chromeHTML(activeKey) {
     <div class="wrap header-bar">
       <a class="wordmark" href="index.html"><img src="https://blizzcool.es/wp-content/uploads/2025/12/cropped-cropped-LOGO-3-600x78-1.avif" alt="Blizzcool" class="logo-img"></a>
 
-      <nav class="site-nav">${navHTML}</nav>
+      <nav class="site-nav">${navHTML}${shareDesktop}</nav>
 
       <div class="header-right">
         <div class="header-meta">
@@ -245,6 +254,10 @@ function chromeHTML(activeKey) {
         <a href="tel:${CONTACTO.telefono}">${CONTACTO.telefonoDisplay}</a>
         <span>${CONTACTO.direccion}</span>
         <a class="btn-wa" href="${CONTACTO.whatsapp}" target="_blank" rel="noopener">${t("drawerWhatsapp")}</a>
+        <button type="button" class="btn-share js-share-open">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3M21 14v3M17 21h4M14 21h.01"/></svg>
+          ${t("compartir")}
+        </button>
       </div>
     </aside>`;
 }
@@ -256,6 +269,21 @@ function footerHTML() {
     <div class="wrap">
       <span>${t("footerLine")}</span>
       <span>${t("footerRight")}</span>
+    </div>
+    <div id="share-modal" class="share-modal" role="dialog" aria-modal="true" aria-labelledby="share-title" hidden>
+      <div class="share-backdrop js-share-close"></div>
+      <div class="share-card">
+        <button type="button" class="drawer-close js-share-close" aria-label="${t("cerrar")}">×</button>
+        <h2 id="share-title">${t("compartirTitulo")}</h2>
+        <p>${t("compartirTexto")}</p>
+        <div id="share-qr" class="share-qr"></div>
+        <div id="share-url" class="share-url"></div>
+        <div class="share-actions">
+          <button type="button" class="btn js-share-copy">${t("copiarEnlace")}</button>
+          <button type="button" class="btn btn-outline js-share-native">${t("compartirNativo")}</button>
+          <button type="button" class="btn btn-outline js-share-download">${t("descargarQR")}</button>
+        </div>
+      </div>
     </div>
     <div class="float-stack">
     ${ivaFloatHTML()}
@@ -340,6 +368,8 @@ function initChrome(activeKey) {
       });
     }
   }
+
+  initShare();
 
   ["lang-toggle", "lang-toggle-mobile"].forEach((id) => {
     const btn = document.getElementById(id);
@@ -559,4 +589,84 @@ function renderContacto() {
         <a class="btn btn-outline" href="${CONTACTO.whatsapp}" target="_blank" rel="noopener">${t("contactoAbrirWhatsapp")}</a>
       </div>
     </div>`;
+}
+
+
+/* ---------- Compartir / QR ---------- */
+
+function urlCompartir() {
+  return window.location.href.split("#")[0];
+}
+
+function dibujarQR(cont, texto) {
+  cont.innerHTML = "";
+  if (typeof qrcode !== "function") {
+    cont.innerHTML = `<p class="share-qr-fallback">QR no disponible sin conexión.</p>`;
+    return null;
+  }
+  const qr = qrcode(0, "M");
+  qr.addData(texto);
+  qr.make();
+  const n = qr.getModuleCount();
+  const size = 6, margin = 3;
+  const canvas = document.createElement("canvas");
+  const px = (n + margin * 2) * size;
+  canvas.width = px; canvas.height = px;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, px, px);
+  ctx.fillStyle = "#1b2433";
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) {
+    if (qr.isDark(r, c)) ctx.fillRect((c + margin) * size, (r + margin) * size, size, size);
+  }
+  cont.appendChild(canvas);
+  return canvas;
+}
+
+function initShare() {
+  const modal = document.getElementById("share-modal");
+  if (!modal) return;
+  let canvas = null;
+
+  const abrir = () => {
+    const url = urlCompartir();
+    document.getElementById("share-url").textContent = url;
+    canvas = dibujarQR(document.getElementById("share-qr"), url);
+    modal.hidden = false;
+    document.body.classList.add("menu-open");
+    const drawer = document.getElementById("mobile-menu");
+    const backdrop = document.getElementById("drawer-backdrop");
+    const mt = document.getElementById("menu-toggle");
+    if (drawer) drawer.classList.remove("open");
+    if (backdrop) backdrop.classList.remove("open");
+    if (mt) { mt.classList.remove("open"); mt.setAttribute("aria-expanded", "false"); }
+  };
+  const cerrar = () => { modal.hidden = true; document.body.classList.remove("menu-open"); };
+
+  document.querySelectorAll(".js-share-open").forEach((b) => b.addEventListener("click", abrir));
+  modal.querySelectorAll(".js-share-close").forEach((b) => b.addEventListener("click", cerrar));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) cerrar(); });
+
+  modal.querySelector(".js-share-copy").addEventListener("click", async (e) => {
+    const btn = e.currentTarget;
+    try { await navigator.clipboard.writeText(urlCompartir()); } catch (_) {
+      const ta = document.createElement("textarea"); ta.value = urlCompartir(); document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove();
+    }
+    const orig = btn.textContent; btn.textContent = t("enlaceCopiado");
+    setTimeout(() => (btn.textContent = orig), 1800);
+  });
+
+  const nativeBtn = modal.querySelector(".js-share-native");
+  if (navigator.share) {
+    nativeBtn.addEventListener("click", () => navigator.share({ title: document.title, url: urlCompartir() }).catch(() => {}));
+  } else {
+    nativeBtn.style.display = "none";
+  }
+
+  modal.querySelector(".js-share-download").addEventListener("click", () => {
+    if (!canvas) return;
+    const a = document.createElement("a");
+    a.download = "blizzcool-qr.png";
+    a.href = canvas.toDataURL("image/png");
+    a.click();
+  });
 }
