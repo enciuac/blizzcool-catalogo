@@ -205,6 +205,11 @@ function chromeHTML(activeKey) {
     { key: "contacto", href: "contacto.html", label: t("navContacto") },
   ];
   const shareDesktop = `<button type="button" class="site-nav-share js-share-open">${t("compartir")}</button>`;
+  const langSeg = `
+    <div class="lang-seg" role="group" aria-label="Idioma / Language">
+      <button type="button" class="js-lang ${L === "es" ? "active" : ""}" data-lang="es" aria-pressed="${L === "es"}">ES</button>
+      <button type="button" class="js-lang ${L === "en" ? "active" : ""}" data-lang="en" aria-pressed="${L === "en"}">EN</button>
+    </div>`;
   const navHTML = navItems
     .map((n) => `<a href="${n.href}" class="${activeKey === n.key ? "active" : ""}">${n.label}</a>`)
     .join("");
@@ -223,7 +228,7 @@ function chromeHTML(activeKey) {
       </div>
 
       <div class="header-actions">
-        <button type="button" id="lang-toggle" class="lang-toggle">${L === "es" ? "EN" : "ES"}</button>
+        ${langSeg}
         <button type="button" id="menu-toggle" class="menu-toggle" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
         </button>
@@ -247,7 +252,7 @@ function chromeHTML(activeKey) {
       </nav>
       <div class="mobile-menu-row">
         <span class="mobile-menu-row-label">${t("idioma")}</span>
-        <button type="button" id="lang-toggle-mobile" class="lang-toggle">${L === "es" ? "English" : "Español"}</button>
+        ${langSeg}
       </div>
       <div class="mobile-menu-contact">
         <a href="mailto:${CONTACTO.email}">${CONTACTO.email}</a>
@@ -370,14 +375,13 @@ function initChrome(activeKey) {
 
   initShare();
 
-  ["lang-toggle", "lang-toggle-mobile"].forEach((id) => {
-    const btn = document.getElementById(id);
-    if (btn) {
-      btn.addEventListener("click", () => {
-        setLang(lang() === "es" ? "en" : "es");
-        if (typeof window.renderPage === "function") window.renderPage();
-      });
-    }
+  document.querySelectorAll(".js-lang").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const l = btn.getAttribute("data-lang");
+      if (l === lang()) return;
+      setLang(l);
+      if (typeof window.renderPage === "function") window.renderPage();
+    });
   });
 }
 

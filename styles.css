@@ -110,22 +110,32 @@ button { font-family: inherit; }
 .menu-toggle.open span:nth-child(2) { opacity: 0; }
 .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-.lang-toggle {
+.lang-seg {
+  display: inline-flex;
+  padding: 3px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.lang-seg button {
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
   font-family: var(--font-mono);
   font-size: 12.5px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: var(--blue);
-  background: var(--blue-soft);
-  border: 1px solid transparent;
-  border-radius: var(--radius);
   padding: 8px 12px;
-  min-height: 44px;
+  min-height: 36px;
+  border-radius: 999px;
   cursor: pointer;
-  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
-.lang-toggle:hover { background: var(--blue); color: #fff; }
+.lang-seg button.active { background: var(--blue-dark); color: #fff; }
+.lang-seg button:not(.active):hover { color: var(--blue-dark); }
 
 /* ---------- Cajón de menú móvil ---------- */
 
