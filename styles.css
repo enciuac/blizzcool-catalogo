@@ -5,20 +5,24 @@
    ========================================================= */
 
 :root {
-  --bg: #f3f6fa;
+  --bg: #f4f6f9;
   --bg-card: #ffffff;
-  --ink: #0f1c2e;
-  --ink-soft: #55657a;
-  --ink-faint: #8a98aa;
-  --line: #dbe4ee;
-  --blue: #0b6fd6;
-  --blue-dark: #0a3a78;
-  --blue-soft: #e6f1fc;
-  --orange: #f47a20;
-  --orange-dark: #d9640f;
+  --ink: #1b2433;
+  --ink-soft: #5b6779;
+  --ink-faint: #8e98a8;
+  --line: #dde3ec;
+  /* Colores de marca (logo): verde #7AB35B y azul #7089C0 */
+  --green-brand: #7ab35b;
+  --green: #4f8a30;        /* verde oscurecido: botones con texto blanco (contraste AA) */
+  --green-hover: #3f7326;
+  --green-soft: #eef6e8;
+  --blue-brand: #7089c0;
+  --blue: #5b74b3;         /* azul oscurecido para enlaces y texto pequeño */
+  --blue-dark: #3a5296;    /* títulos y bandas */
+  --blue-soft: #edf1f9;
   --radius: 6px;
   --radius-lg: 12px;
-  --shadow: 0 6px 24px rgba(15, 28, 46, 0.08);
+  --shadow: 0 6px 24px rgba(27, 36, 51, 0.08);
   --font-head: "Space Grotesk", "Inter Tight", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
@@ -191,8 +195,8 @@ button { font-family: inherit; }
 }
 
 .mobile-nav a::after { content: "›"; color: var(--ink-faint); font-size: 22px; }
-.mobile-nav a.active { color: var(--blue); background: var(--blue-soft); }
-.mobile-nav a.active::after { color: var(--blue); }
+.mobile-nav a.active { color: var(--green); background: var(--green-soft); }
+.mobile-nav a.active::after { color: var(--green); }
 
 .drawer-section-title {
   font-family: var(--font-mono);
@@ -237,12 +241,12 @@ button { font-family: inherit; }
 }
 
 .mobile-menu-contact a { color: #fff; text-decoration: none; font-weight: 500; }
-.mobile-menu-contact span { color: #b9cbe6; font-size: 13px; line-height: 1.4; }
+.mobile-menu-contact span { color: #dbe3f3; font-size: 13px; line-height: 1.4; }
 
 .mobile-menu-contact .btn-wa {
   margin-top: 6px;
-  background: #25d366;
-  color: #062b17;
+  background: var(--green-brand);
+  color: #fff;
   text-align: center;
   padding: 12px;
   border-radius: var(--radius);
@@ -277,7 +281,7 @@ button { font-family: inherit; }
   flex-shrink: 0;
 }
 
-.iva-toggle[aria-pressed="true"] .iva-toggle-track { background: var(--blue); }
+.iva-toggle[aria-pressed="true"] .iva-toggle-track { background: var(--green-brand); }
 
 .iva-toggle-thumb {
   position: absolute;
@@ -310,7 +314,7 @@ button { font-family: inherit; }
    ========================================================= */
 
 .hero {
-  background: linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+  background: linear-gradient(180deg, #ffffff 0%, var(--green-soft) 100%);
   border-bottom: 1px solid var(--line);
   padding: 34px 0 28px;
 }
@@ -346,7 +350,7 @@ button { font-family: inherit; }
 
 .hero-stats div:nth-child(2n) { border-right: none; }
 .hero-stats div:nth-child(3), .hero-stats div:nth-child(4) { border-bottom: none; }
-.hero-stats .num { display: block; font-family: var(--font-mono); font-size: 22px; color: var(--blue); }
+.hero-stats .num { display: block; font-family: var(--font-mono); font-size: 22px; color: var(--green); }
 .hero-stats .lbl { display: block; font-size: 12.5px; color: var(--ink-soft); margin-top: 2px; }
 
 /* =========================================================
@@ -428,8 +432,8 @@ button { font-family: inherit; }
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.card:active, .card:hover { border-color: var(--blue); box-shadow: var(--shadow); }
-.card:hover .card-title { color: var(--blue); }
+.card:active, .card:hover { border-color: var(--green-brand); box-shadow: var(--shadow); }
+.card:hover .card-title { color: var(--green); }
 
 .card-media {
   grid-area: media;
@@ -524,14 +528,14 @@ button { font-family: inherit; }
 }
 
 .btn:hover { background: var(--blue-dark); }
-.btn-accent { background: var(--orange); color: #fff; }
-.btn-accent:hover { background: var(--orange-dark); }
+.btn-accent { background: var(--green); color: #fff; }
+.btn-accent:hover { background: var(--green-hover); }
 .btn-outline { background: transparent; border: 1px solid var(--line); color: var(--ink); }
 .btn-outline:hover { background: var(--bg); border-color: var(--blue); color: var(--blue); }
 .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.35); color: #fff; }
 
 .cta-band {
-  background: linear-gradient(135deg, var(--blue-dark) 0%, #0b4f9e 100%);
+  background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-brand) 100%);
   color: #fff;
   padding: 40px 0;
   margin-top: 16px;
@@ -539,9 +543,9 @@ button { font-family: inherit; }
 
 .cta-band .wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
 .cta-band h3 { font-family: var(--font-head); font-size: 24px; margin: 0; max-width: 24ch; line-height: 1.2; }
-.cta-band p { color: #b9cbe6; margin: 8px 0 0; font-size: 14.5px; max-width: 52ch; }
-.cta-band .btn { background: var(--orange); }
-.cta-band .btn:hover { background: var(--orange-dark); }
+.cta-band p { color: #dbe3f3; margin: 8px 0 0; font-size: 14.5px; max-width: 52ch; }
+.cta-band .btn { background: var(--green); }
+.cta-band .btn:hover { background: var(--green-hover); }
 
 /* =========================================================
    PIE
@@ -663,7 +667,7 @@ body.has-buy-bar .site-footer { padding-bottom: 100px; }
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--blue);
+  background: var(--green-brand);
 }
 
 .related { display: grid; grid-template-columns: 1fr; gap: 12px; }
