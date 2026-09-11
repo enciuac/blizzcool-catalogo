@@ -595,7 +595,9 @@ function renderContacto() {
 /* ---------- Compartir / QR ---------- */
 
 function urlCompartir() {
-  return window.location.href.split("#")[0];
+  // Siempre la portada del catálogo, independientemente de la página desde la que se comparta
+  const u = new URL("index.html", window.location.href);
+  return u.href.replace(/index\.html$/, "");
 }
 
 function dibujarQR(cont, texto) {
@@ -657,7 +659,7 @@ function initShare() {
 
   const nativeBtn = modal.querySelector(".js-share-native");
   if (navigator.share) {
-    nativeBtn.addEventListener("click", () => navigator.share({ title: document.title, url: urlCompartir() }).catch(() => {}));
+    nativeBtn.addEventListener("click", () => navigator.share({ title: "Blizzcool", url: urlCompartir() }).catch(() => {}));
   } else {
     nativeBtn.style.display = "none";
   }
