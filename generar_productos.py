@@ -30,36 +30,44 @@ add("ac-1900-1", "aire-acondicionado", "AC-1900/1", 695, "1030001", "5252.5",
     "Spot cooler compacto para espacios medianos, oficinas y locales sin obra.",
     "Aire acondicionado portátil por compresor, listo para enfriar con un simple enchufe estándar y un tubo de evacuación al exterior. Pensado para locales comerciales, oficinas en alquiler o como equipo de emergencia cuando falla un sistema fijo.",
     [
-        {"label": "Capacidad frigorífica", "value": "Aprox. 2.000 frigorías"},
-        {"label": "Tipo", "value": "Spot cooler por compresor"},
-        {"label": "Instalación", "value": "Sin obra — enchufe + tubo de evacuación"},
-        {"label": "Movilidad", "value": "Con ruedas"},
-        {"label": "Temperatura ambiente de trabajo", "value": "Hasta 45 °C"},
+        {"label": "Alimentación", "value": "220–240 V / 50 Hz"},
+        {"label": "Capacidad frigorífica", "value": "2,0 kW (2.000 frigorías)"},
+        {"label": "Potencia nominal", "value": "700 W"},
+        {"label": "Corriente nominal", "value": "3,2 A"},
+        {"label": "Caudal de aire", "value": "230 m³/h"},
+        {"label": "Refrigerante", "value": "R290 (180 g)"},
+        {"label": "Ambiente de servicio", "value": "20–43 °C"},
+        {"label": "Nivel sonoro", "value": "52 dB(A)"},
+        {"label": "Dimensiones", "value": "465 × 287 × 586 mm"},
+        {"label": "Peso neto / bruto", "value": "25,5 kg / 28,3 kg"},
+        {"label": "Superficie recomendada", "value": "Hasta 190 m²"},
     ],
     ["Locales comerciales y oficinas en alquiler", "Salas de servidores pequeñas", "Equipo de emergencia ante avería de climatización fija", "Eventos y ferias"],
     destacado=True)
 
 add("ac-2700-1", "aire-acondicionado", "AC-2700/1", 890, "1030002", "5252.1",
     "Spot cooler intermedio para talleres y locales de tamaño medio.",
-    "Segundo escalón de la gama de spot coolers Blizzcool, entre el AC-1900/1 y el AC-3500/2. Refrigeración por compresor, portátil y sin necesidad de instalación fija.",
+    "Segundo escalón de la gama de spot coolers Blizzcool, entre el AC-1900/1 y el AC-3500/2. Refrigeración por compresor, portátil y sin necesidad de instalación fija. Es también la elección habitual para salas de servidores por su bajo consumo.",
     [
-        {"label": "Capacidad frigorífica", "value": "Aprox. 2.700 frigorías"},
-        {"label": "Tipo", "value": "Spot cooler por compresor"},
-        {"label": "Instalación", "value": "Sin obra — enchufe + tubo de evacuación"},
-        {"label": "Movilidad", "value": "Con ruedas"},
-        {"label": "Temperatura ambiente de trabajo", "value": "Hasta 45 °C"},
+        {"label": "Capacidad frigorífica", "value": "2.700 frigorías"},
+        {"label": "Caudal de aire", "value": "400 m³/h"},
+        {"label": "Potencia nominal", "value": "950 W"},
+        {"label": "Ambiente de servicio", "value": "18–45 °C"},
+        {"label": "Refrigerante", "value": "R290"},
+        {"label": "Peso neto", "value": "42 kg"},
     ],
-    ["Talleres y locales comerciales medianos", "Salas técnicas", "Eventos y ferias"])
+    ["Talleres y locales comerciales medianos", "Salas de servidores y racks electrónicos", "Eventos y ferias"])
 
 add("ac-3500-2", "aire-acondicionado", "AC-3500/2", 1165, "1030003", "5252.2",
     "3.500 frigorías para talleres, almacenes y fábricas de tamaño medio.",
     "Sistema de refrigeración por compresor de alto rendimiento y bajo consumo, diseñado para trabajar de forma continua en entornos exigentes. Portátil, con ruedas y sin necesidad de instalación fija.",
     [
         {"label": "Capacidad frigorífica", "value": "3.500 frigorías"},
-        {"label": "Tipo", "value": "Spot cooler por compresor"},
-        {"label": "Refrigerante", "value": "Ecológico"},
-        {"label": "Movilidad", "value": "Con ruedas"},
-        {"label": "Temperatura ambiente de trabajo", "value": "Hasta 45 °C"},
+        {"label": "Caudal de aire", "value": "600 m³/h"},
+        {"label": "Potencia nominal", "value": "1.400 W"},
+        {"label": "Ambiente de servicio", "value": "18–45 °C"},
+        {"label": "Refrigerante", "value": "R290"},
+        {"label": "Peso neto", "value": "49 kg"},
     ],
     ["Talleres y almacenes", "Fábricas", "Eventos, ferias y exposiciones"],
     destacado=True)
@@ -69,10 +77,11 @@ add("ac-5300-3", "aire-acondicionado", "AC-5300/3", 1990, "1030004", "5252.3",
     "El modelo de mayores prestaciones de la gama de spot coolers Blizzcool. Refrigeración por compresor de alto rendimiento para naves y locales de gran superficie, operativo el mismo día sin obra ni permisos.",
     [
         {"label": "Capacidad frigorífica", "value": "5.300 frigorías"},
-        {"label": "Tipo", "value": "Spot cooler por compresor"},
-        {"label": "Instalación", "value": "Sin obra — enchufe + tubo de evacuación"},
-        {"label": "Movilidad", "value": "Con ruedas"},
-        {"label": "Temperatura ambiente de trabajo", "value": "Hasta 45 °C"},
+        {"label": "Caudal de aire", "value": "800 m³/h"},
+        {"label": "Potencia nominal", "value": "2.200 W"},
+        {"label": "Ambiente de servicio", "value": "18–45 °C"},
+        {"label": "Refrigerante", "value": "R1234yf"},
+        {"label": "Peso neto", "value": "95 kg"},
     ],
     ["Naves industriales de gran superficie", "Salas de servidores y centros de datos", "Locales comerciales grandes"])
 
@@ -350,6 +359,56 @@ add("pack-pc01", "recambios", "Pack refrigerante PC01 (4 uds.)", 109.9, "1090051
     "Pack de 4 placas refrigerantes de recambio para chalecos PCM.",
     "Pack de 4 placas PCM de recambio, compatibles con los chalecos refrigerantes PCM de la gama Blizzcool, para disponer de juegos extra y alternar ciclos sin interrumpir el turno.",
     [{"label": "Unidades", "value": "4"}, {"label": "Compatible con", "value": "Chalecos refrigerantes PCM Blizzcool"}])
+
+# ---------- Fotos reales, tomadas directamente de blizzcool.es (mismo dominio, se enlazan) ----------
+
+BASE = "https://blizzcool.es/wp-content/uploads"
+IMAGENES = {
+    "ac-1900-1": f"{BASE}/2025/12/aire-acondicionado-portatil-ac-1900-1.avif",
+    "ac-2700-1": f"{BASE}/2025/12/aire-acondicionado-portatil-ac-2700-1.avif",
+    "ac-3500-2": f"{BASE}/2025/12/aire-acondicionado-portatil-ac-3500-1.avif",
+    "ac-5300-3": f"{BASE}/2025/12/aire-acondicionado-portatil-ac-5300-3.avif",
+    "bc-200": f"{BASE}/2025/12/Enfriador-evaporativo-Blizzcool-BC-200-Frontal-2-1024x1024.avif",
+    "bc-290": f"{BASE}/2025/12/Enfriador-evaporativo-Blizzcool-BC-290-Frontal-2-1024x1024.avif",
+    "bc-395": f"{BASE}/2025/12/Enfriador-evaporativo-Blizzcool-BC-395-Frontal-2-1024x1024.avif",
+    "bsm-160l": f"{BASE}/2026/01/Front-BSM160.avif",
+    "bsm-380l": f"{BASE}/2026/01/Front-BSM380.avif",
+    "fam240": f"{BASE}/2025/12/Ventilador-de-Techo-BUENA-WEB-1024x1024.avif",
+    "fam300": f"{BASE}/2025/12/Ventilador-de-Techo-BUENA-WEB-1024x1024.avif",
+    "fam370": f"{BASE}/2025/12/Ventilador-de-Techo-BUENA-WEB-1024x1024.avif",
+    "fam430": f"{BASE}/2025/12/Ventiladores-de-techo-GRANDES-1-1024x1024.avif",
+    "fam500": f"{BASE}/2025/12/Ventiladores-de-techo-GRANDES-1-1024x1024.avif",
+    "fam610": f"{BASE}/2025/12/Ventiladores-de-techo-GRANDES-1-1024x1024.avif",
+    "gd-120": f"{BASE}/2025/12/Ventilador-Movil-Blizzcool-HDY-12-32-O1200-Buena-1-1024x1024.avif",
+    "gd-150": f"{BASE}/2025/12/Ventilador-Movil-Blizzcool-HDY-15-32-O1500-Buen-2-1024x1024.avif",
+    "gd-200": f"{BASE}/2025/12/Ventilador-Movil-Blizzcool-HDY-2-32-O2000-Buena-2-1024x1024.avif",
+    "bp-600": f"{BASE}/2026/01/BP600-1024x1024.avif",
+    "bp-900": f"{BASE}/2026/01/BP900-1024x1024.avif",
+    "bp-1200": f"{BASE}/2026/01/BP1200-1024x1024.avif",
+    "bw05": f"{BASE}/2026/01/Chaleco-BW05-1024x1024.avif",
+    "bw08": f"{BASE}/2025/12/Productoo-1024x1024.avif",
+    "bw01-pcm": f"{BASE}/2025/12/modelo_BW_3.avif",
+    "bw04": f"{BASE}/2025/12/modelo_BW_5.avif",
+    "bw02-pcm": f"{BASE}/2025/12/Chaleco-BW02-1024x1024.avif",
+    "pack-pc01": f"{BASE}/2025/12/Placas-de-Hielo-1024x825.avif",
+    "helice-bc200": f"{BASE}/2026/02/Helice-BC200-1-1024x1024.avif",
+    "helice-bc290": f"{BASE}/2026/02/Helice-BC200-1-1024x1024.avif",
+    "helice-bc395": f"{BASE}/2026/02/Helice-BC200-1-1024x1024.avif",
+    "parrilla-bc200": f"{BASE}/2026/02/Rejilla-1024x1024.avif",
+    "parrilla-bc290": f"{BASE}/2026/02/Rejilla-1024x1024.avif",
+    "parrilla-bc395": f"{BASE}/2026/02/Rejilla-1024x1024.avif",
+    "panel-control-bc": f"{BASE}/2026/02/Panel-de-Control-Frente-1024x1024.avif",
+    "generador-anion": f"{BASE}/2026/02/Generador-de-Anion-1024x1024.avif",
+    "filtros-bc200": f"{BASE}/2026/02/Filtro2-1-1024x1024.avif",
+    "filtros-bc290": f"{BASE}/2026/02/Filtro2-1-1024x1024.avif",
+    "filtros-bc395": f"{BASE}/2026/02/Filtro2-1-1024x1024.avif",
+    "bomba-bc200-bc290": f"{BASE}/2026/02/Bomba-de-Agua-1024x1024.avif",
+    "bomba-bc395": f"{BASE}/2026/02/Bomba-de-Agua-1024x1024.avif",
+}
+
+for p in PRODUCTOS:
+    if p["id"] in IMAGENES:
+        p["imagen"] = IMAGENES[p["id"]]
 
 # ---------- Escribir productos.js ----------
 

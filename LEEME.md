@@ -64,5 +64,8 @@ Abre `index.html` con doble clic (funciona sin servidor, todo es HTML/CSS/JS est
 7. Ropa térmica y refrigerante (5 equipos, 2 con variantes de talla/color)
 8. Recambios y post-venta (14 referencias)
 
+## Fotos y logo
+Las 40 fichas ya tienen foto real: están enlazadas directamente desde blizzcool.es (mismo dominio, no se han copiado archivos), así que si Blizzcool cambia una foto en su web, se actualiza sola aquí también. El logo de la cabecera es el mismo enlace directo a `blizzcool.es/wp-content/uploads/...LOGO-3...avif`. Si en algún momento prefieres tener copias propias por si el hotlink deja de funcionar, descarga las imágenes desde el propio código fuente de blizzcool.es, guárdalas en `img/` y cambia el `imagen:` de cada producto en `productos.js` por la ruta local (ej. `"img/ac-1900-1.avif"`).
+
 ## Nota sobre el contacto
-Email, teléfono y dirección (`info@blizzcool.es`, `+34 617 879 087`, C/ Segorbe 38, P.I. Carrús, Elche) están tomados de la página de contacto oficial (blizzcool.es/contacto). Si cambian, se edita en `index.html`, `producto.html` y `catalogo.js` (buscar "mailto:info@blizzcool.es").
+Email, teléfono y dirección (`info@blizzcool.es`, `+34 617 879 087`, C/ Segorbe 45, P.I. Carrús, Elche) y la razón social (Toolsplace, S.L., CIF B42669192) están tomados de la web oficial actual (blizzcool.es). Si cambian, se edita en `index.html`, `producto.html` y `catalogo.js` (buscar "mailto:info@blizzcool.es").
