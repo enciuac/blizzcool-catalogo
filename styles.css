@@ -80,6 +80,7 @@ button { font-family: inherit; }
 
 .site-nav { display: none; }
 .header-right { display: none; }
+.header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
 .menu-toggle {
   display: flex;
@@ -119,7 +120,7 @@ button { font-family: inherit; }
   border: 1px solid transparent;
   border-radius: var(--radius);
   padding: 8px 12px;
-  min-height: 36px;
+  min-height: 44px;
   cursor: pointer;
   flex-shrink: 0;
 }
@@ -264,6 +265,8 @@ button { font-family: inherit; }
 
 .drawer-cats a:active, .drawer-cats a:hover { color: var(--blue-dark); background: var(--blue-soft); }
 
+.mobile-menu-row-label { font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint); }
+
 .mobile-menu-row {
   display: flex;
   align-items: center;
@@ -345,13 +348,6 @@ button { font-family: inherit; }
 .iva-note { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-faint); margin-left: 4px; }
 .iva-note-big { font-family: var(--font-body); font-size: 13px; color: var(--ink-soft); margin-left: 8px; }
 
-.toolbar-inline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 0;
-}
 
 /* =========================================================
    HERO
@@ -608,11 +604,41 @@ body.has-buy-bar .site-footer { padding-bottom: 100px; }
 
 /* ---------- Botón flotante de WhatsApp ---------- */
 
-.wa-float {
+.float-stack {
   position: fixed;
   right: 16px;
   bottom: calc(16px + env(safe-area-inset-bottom));
   z-index: 34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.iva-float {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--blue-brand);
+  background: var(--bg-card);
+  color: var(--blue-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(27, 36, 51, 0.2);
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+  padding: 0;
+}
+
+.iva-float-top { font-family: var(--font-mono); font-size: 13px; font-weight: 700; letter-spacing: 0.04em; }
+.iva-float-state { font-family: var(--font-body); font-size: 10.5px; margin-top: 3px; opacity: 0.85; }
+.iva-float:hover { transform: translateY(-2px); }
+.iva-float[aria-pressed="true"] { background: var(--green-brand); border-color: var(--green-brand); color: #fff; }
+
+.wa-float {
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -629,7 +655,7 @@ body.has-buy-bar .site-footer { padding-bottom: 100px; }
 .wa-float svg { display: block; }
 
 /* En fichas de producto, en móvil, sube por encima de la barra fija de compra */
-body.has-buy-bar .wa-float { bottom: calc(86px + env(safe-area-inset-bottom)); }
+body.has-buy-bar .float-stack { bottom: calc(86px + env(safe-area-inset-bottom)); }
 
 /* =========================================================
    FICHA DE PRODUCTO
@@ -820,7 +846,6 @@ body.has-buy-bar .wa-float { bottom: calc(86px + env(safe-area-inset-bottom)); }
   .header-right { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
   .header-meta { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); text-align: right; white-space: nowrap; line-height: 1.4; }
   .header-meta a { color: var(--blue); text-decoration: none; }
-  .toolbar-inline { display: none; }
 
   .hero { padding: 56px 0 44px; }
   .hero .wrap { grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: end; }
@@ -840,8 +865,7 @@ body.has-buy-bar .wa-float { bottom: calc(86px + env(safe-area-inset-bottom)); }
   .product-hero { grid-template-columns: 1.05fr 0.95fr; gap: 40px; padding-top: 20px; padding-bottom: 48px; }
   .product-media { position: sticky; top: calc(var(--header-h) + 20px); }
   .mobile-buy-bar { display: none; }
-  body.has-buy-bar .wa-float { bottom: 24px; }
-  .wa-float { right: 24px; bottom: 24px; }
+  .float-stack, body.has-buy-bar .float-stack { right: 24px; bottom: 24px; }
   .specs-table td { padding: 12px 16px; }
   .section-block h2 { font-size: 20px; margin-top: 32px; }
 }

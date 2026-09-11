@@ -64,6 +64,8 @@ const STR = {
     contactoAbrirWhatsapp: "Abrir WhatsApp",
     drawerMenu: "Menú", drawerFamilias: "Familias de producto",
     drawerWhatsapp: "Escríbenos por WhatsApp",
+    idioma: "Idioma",
+    ivaFloatOn: "incl.", ivaFloatOff: "sin",
   },
   en: {
     navInicio: "Home", navCatalogo: "Catalog", navContacto: "Contact",
@@ -107,6 +109,8 @@ const STR = {
     contactoAbrirWhatsapp: "Open WhatsApp",
     drawerMenu: "Menu", drawerFamilias: "Product families",
     drawerWhatsapp: "Message us on WhatsApp",
+    idioma: "Language",
+    ivaFloatOn: "incl.", ivaFloatOff: "excl.",
   },
 };
 function t(key) {
@@ -203,17 +207,18 @@ function chromeHTML(activeKey) {
       <nav class="site-nav">${navHTML}</nav>
 
       <div class="header-right">
-        <div id="iva-toggle-mount"></div>
-        <button type="button" id="lang-toggle" class="lang-toggle">${L === "es" ? "EN" : "ES"}</button>
         <div class="header-meta">
           <a href="mailto:${CONTACTO.email}">${CONTACTO.email}</a> · <a href="tel:${CONTACTO.telefono}">${CONTACTO.telefonoDisplay}</a><br>
           ${CONTACTO.direccion}
         </div>
       </div>
 
-      <button type="button" id="menu-toggle" class="menu-toggle" aria-label="Menu" aria-expanded="false">
+      <div class="header-actions">
+        <button type="button" id="lang-toggle" class="lang-toggle">${L === "es" ? "EN" : "ES"}</button>
+        <button type="button" id="menu-toggle" class="menu-toggle" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
-      </button>
+        </button>
+      </div>
     </div>
 
     <div id="drawer-backdrop" class="drawer-backdrop"></div>
@@ -232,8 +237,8 @@ function chromeHTML(activeKey) {
         </div>
       </nav>
       <div class="mobile-menu-row">
-        <div id="iva-toggle-mount-mobile"></div>
-        <button type="button" id="lang-toggle-mobile" class="lang-toggle">${L === "es" ? "EN" : "ES"}</button>
+        <span class="mobile-menu-row-label">${t("idioma")}</span>
+        <button type="button" id="lang-toggle-mobile" class="lang-toggle">${L === "es" ? "English" : "Español"}</button>
       </div>
       <div class="mobile-menu-contact">
         <a href="mailto:${CONTACTO.email}">${CONTACTO.email}</a>
@@ -244,13 +249,7 @@ function chromeHTML(activeKey) {
     </aside>`;
 }
 
-function toolbarInlineHTML() {
-  return `
-    <div class="toolbar-inline">
-      <div id="iva-toggle-mount-inline"></div>
-      <button type="button" id="lang-toggle-inline" class="lang-toggle">${lang() === "es" ? "EN" : "ES"}</button>
-    </div>`;
-}
+
 
 function footerHTML() {
   return `
@@ -258,17 +257,19 @@ function footerHTML() {
       <span>${t("footerLine")}</span>
       <span>${t("footerRight")}</span>
     </div>
+    <div class="float-stack">
+    ${ivaFloatHTML()}
     <a class="wa-float" href="${CONTACTO.whatsapp}" target="_blank" rel="noopener" aria-label="WhatsApp ${CONTACTO.telefonoDisplay}" title="WhatsApp ${CONTACTO.telefonoDisplay}">
       <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.6.8 5.1 2.2 7.2L3.2 29l6.2-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.9S23.2 3 16 3zm0 23.5c-2.1 0-4.1-.6-5.8-1.6l-.4-.2-3.7 1.2 1.2-3.6-.3-.4A10.6 10.6 0 0 1 5.3 15.8C5.3 10 10.1 5.3 16 5.3S26.7 10 26.7 15.8 21.9 26.5 16 26.5zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.6-1.6-.9-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.8 5 .8.4 1.4.6 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
     </a>`;
 }
 
-function ivaToggleHTML() {
+function ivaFloatHTML() {
   const activo = ivaActivo();
   return `
-    <button type="button" class="iva-toggle js-iva-toggle" aria-pressed="${activo}">
-      <span class="iva-toggle-track"><span class="iva-toggle-thumb"></span></span>
-      <span class="iva-toggle-label">${activo ? t("ivaToggleOn") : t("ivaToggleOff")}</span>
+    <button type="button" class="iva-float js-iva-toggle" aria-pressed="${activo}" title="${activo ? t("ivaToggleOn") : t("ivaToggleOff")}">
+      <span class="iva-float-top">IVA</span>
+      <span class="iva-float-state">${activo ? t("ivaFloatOn") : t("ivaFloatOff")}</span>
     </button>`;
 }
 
@@ -289,10 +290,11 @@ function actualizarPreciosEnPagina() {
     const nota = precio.pendiente ? "" : precio.conIva ? ` ${t("ivaInclNoteBig")}` : ` ${t("sinIvaNoteBig")}`;
     el.innerHTML = `${precio.texto}<span class="iva-note-big">${nota}</span>`;
   });
-  document.querySelectorAll(".js-iva-toggle").forEach((btn) => {
+  document.querySelectorAll(".iva-float").forEach((btn) => {
     const activo = ivaActivo();
     btn.setAttribute("aria-pressed", activo);
-    btn.querySelector(".iva-toggle-label").textContent = activo ? t("ivaToggleOn") : t("ivaToggleOff");
+    btn.setAttribute("title", activo ? t("ivaToggleOn") : t("ivaToggleOff"));
+    btn.querySelector(".iva-float-state").textContent = activo ? t("ivaFloatOn") : t("ivaFloatOff");
   });
 }
 
@@ -302,13 +304,6 @@ function initChrome(activeKey) {
   if (header) header.innerHTML = chromeHTML(activeKey);
   if (footer) footer.innerHTML = footerHTML();
 
-  const toolbarMount = document.getElementById("toolbar-inline");
-  if (toolbarMount) toolbarMount.innerHTML = toolbarInlineHTML();
-
-  ["iva-toggle-mount", "iva-toggle-mount-mobile", "iva-toggle-mount-inline"].forEach((id) => {
-    const mount = document.getElementById(id);
-    if (mount) mount.innerHTML = ivaToggleHTML();
-  });
 
   document.querySelectorAll(".js-iva-toggle").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -346,7 +341,7 @@ function initChrome(activeKey) {
     }
   }
 
-  ["lang-toggle", "lang-toggle-mobile", "lang-toggle-inline"].forEach((id) => {
+  ["lang-toggle", "lang-toggle-mobile"].forEach((id) => {
     const btn = document.getElementById(id);
     if (btn) {
       btn.addEventListener("click", () => {
