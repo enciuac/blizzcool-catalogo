@@ -277,7 +277,6 @@ function footerHTML() {
         <h2 id="share-title">${t("compartirTitulo")}</h2>
         <p>${t("compartirTexto")}</p>
         <div id="share-qr" class="share-qr"></div>
-        <div id="share-url" class="share-url"></div>
         <div class="share-actions">
           <button type="button" class="btn js-share-copy">${t("copiarEnlace")}</button>
           <button type="button" class="btn btn-outline js-share-native">${t("compartirNativo")}</button>
@@ -631,7 +630,6 @@ function initShare() {
 
   const abrir = () => {
     const url = urlCompartir();
-    document.getElementById("share-url").textContent = url;
     canvas = dibujarQR(document.getElementById("share-qr"), url);
     modal.hidden = false;
     document.body.classList.add("menu-open");

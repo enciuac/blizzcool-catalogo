@@ -937,7 +937,7 @@ body.has-buy-bar .float-stack { bottom: calc(86px + env(safe-area-inset-bottom))
 .share-card p { color: var(--ink-soft); font-size: 14px; margin: 0 0 14px; text-align: left; }
 
 .share-qr { display: flex; justify-content: center; }
-.share-qr canvas { width: min(240px, 60vw); height: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+.share-qr canvas { width: min(240px, 60vw); height: auto; border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 16px; }
 .share-qr-fallback { color: var(--ink-faint); font-size: 13px; }
 
 .share-url {
