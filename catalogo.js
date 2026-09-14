@@ -39,19 +39,20 @@ const STR = {
     ivaInclNote: "IVA incl.", sinIvaNote: "sin IVA",
     ivaInclNoteBig: "· IVA incluido (21%)", sinIvaNoteBig: "· precio sin IVA",
     ivaToggleOn: "Precios con IVA (21%)", ivaToggleOff: "Precios sin IVA",
+    ivaLabel: "IVA",
     equiposEnCatalogo: (n) => `${n} equipo${n > 1 ? "s" : ""} en catálogo`,
     breadcrumbCatalogo: "Catálogo",
     descripcionTitle: "Descripción", fichaTecnicaTitle: "Ficha técnica", aplicacionesTitle: "Aplicaciones",
     variantesTitle: "Variantes disponibles",
     variantesText: "Mismo precio de referencia para todas las variantes. Código interno (Sage Tools) de cada una:",
     variante: "Variante", codigoInterno: "Código interno",
-    referenciaInterna: "Referencia interna", sageToolsLabel: "Código Sage Tools", gidLabel: "GID",
+    referenciaInterna: "Referencia interna", sageToolsLabel: "Referencia",
     otrosEquipos: "Otros equipos de la gama",
     solicitarPresupuesto: "Solicitar presupuesto", verMasEquipos: "Ver más equipos de esta gama",
     equipoNoEncontrado: "Equipo no encontrado",
     noExiste: (id) => `No existe ningún equipo con el identificador "${id}" en el catálogo.`,
     volverCatalogo: "Volver al catálogo",
-    footerLine: "© Blizzcool (Toolsplace, S.L.) — catálogo interno",
+    footerLine: "© Blizzcool (Toolsplace, S.L.)",
     footerRight: "+34 617 879 087 · blizzcool.es",
     contactoTitle: "Contacto",
     contactoSubtitle: "¿Tienes dudas sobre qué equipo necesitas? Escríbenos, llámanos o pasa a vernos.",
@@ -88,19 +89,20 @@ const STR = {
     ivaInclNote: "VAT incl.", sinIvaNote: "excl. VAT",
     ivaInclNoteBig: "· VAT included (21%)", sinIvaNoteBig: "· price excl. VAT",
     ivaToggleOn: "Prices incl. VAT (21%)", ivaToggleOff: "Prices excl. VAT",
+    ivaLabel: "VAT",
     equiposEnCatalogo: (n) => `${n} product${n > 1 ? "s" : ""} in catalog`,
     breadcrumbCatalogo: "Catalog",
     descripcionTitle: "Description", fichaTecnicaTitle: "Datasheet", aplicacionesTitle: "Applications",
     variantesTitle: "Available variants",
     variantesText: "Same reference price for every variant. Internal code (Sage Tools) for each one:",
     variante: "Variant", codigoInterno: "Internal code",
-    referenciaInterna: "Internal reference", sageToolsLabel: "Sage Tools code", gidLabel: "GID",
+    referenciaInterna: "Internal reference", sageToolsLabel: "Reference",
     otrosEquipos: "Other equipment in this range",
     solicitarPresupuesto: "Request a quote", verMasEquipos: "See more equipment in this range",
     equipoNoEncontrado: "Product not found",
     noExiste: (id) => `There's no product with the identifier "${id}" in the catalog.`,
     volverCatalogo: "Back to catalog",
-    footerLine: "© Blizzcool (Toolsplace, S.L.) — internal catalog",
+    footerLine: "© Blizzcool (Toolsplace, S.L.)",
     footerRight: "+34 617 879 087 · blizzcool.es",
     contactoTitle: "Contact",
     contactoSubtitle: "Not sure which unit you need? Write to us, call us, or come and see us.",
@@ -177,6 +179,42 @@ function mediaHTML(producto, alt) {
   return `<div class="placeholder-photo"><span>${lang() === "en" ? "Photo pending" : "Foto pendiente"}</span></div>`;
 }
 
+function galeriaProducto(p) {
+  const fotos = [p.imagen, ...(p.imagenes || [])].filter(Boolean);
+  return [...new Set(fotos)];
+}
+
+function productMediaHTML(p) {
+  const fotos = galeriaProducto(p);
+  if (fotos.length === 0) {
+    return `<div class="product-gallery"><div class="product-gallery-main"><div class="placeholder-photo"><span>${lang() === "en" ? "Photo pending" : "Foto pendiente"}</span></div></div></div>`;
+  }
+  const thumbsHTML = fotos.length > 1
+    ? `<div class="product-thumbs">${fotos
+        .map(
+          (src, i) => `<button type="button" class="product-thumb ${i === 0 ? "active" : ""}" data-src="${src}" aria-label="${p.nombre} ${i + 1}"><img src="${src}" alt="" loading="lazy"></button>`
+        )
+        .join("")}</div>`
+    : "";
+  return `
+    <div class="product-gallery">
+      <div class="product-gallery-main"><img id="product-main-photo" src="${fotos[0]}" alt="${p.nombre}"></div>
+      ${thumbsHTML}
+    </div>`;
+}
+
+function initProductGallery() {
+  const main = document.getElementById("product-main-photo");
+  const thumbs = document.querySelectorAll(".product-thumb");
+  if (!main || !thumbs.length) return;
+  thumbs.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      main.src = btn.getAttribute("data-src");
+      thumbs.forEach((b) => b.classList.toggle("active", b === btn));
+    });
+  });
+}
+
 function cardHTML(p) {
   const precio = calcularPrecio(p.pvp);
   const nota = precio.pendiente ? "" : precio.conIva ? ` ${t("ivaInclNote")}` : ` ${t("sinIvaNote")}`;
@@ -204,27 +242,35 @@ function chromeHTML(activeKey) {
     { key: "catalogo", href: "index.html#catalogo-top", label: t("navCatalogo") },
     { key: "contacto", href: "contacto.html", label: t("navContacto") },
   ];
-  const shareDesktop = `<button type="button" class="site-nav-share js-share-open">${t("compartir")}</button>`;
   const langSeg = `
-    <div class="lang-seg" role="group" aria-label="Idioma / Language">
-      <button type="button" class="js-lang ${L === "es" ? "active" : ""}" data-lang="es" aria-pressed="${L === "es"}">ES</button>
-      <button type="button" class="js-lang ${L === "en" ? "active" : ""}" data-lang="en" aria-pressed="${L === "en"}">EN</button>
-    </div>`;
+    <button type="button" class="lang-seg js-lang-toggle" role="switch" aria-checked="${L === "en"}" aria-label="Idioma / Language">
+      <span class="lang-opt ${L === "es" ? "active" : ""}">ES</span>
+      <span class="lang-opt ${L === "en" ? "active" : ""}">EN</span>
+    </button>`;
   const navHTML = navItems
     .map((n) => `<a href="${n.href}" class="${activeKey === n.key ? "active" : ""}">${n.label}</a>`)
     .join("");
+
+  const catDropdownHTML = CATEGORIAS
+    .map((c) => `<a href="index.html#${c.id}">${nombreCategoria(c.id)}</a>`)
+    .join("");
+
+  const navDesktopHTML = `
+    <a href="index.html" class="${activeKey === "inicio" ? "active" : ""}">${t("navInicio")}</a>
+    <div class="nav-item-dropdown">
+      <a href="index.html#catalogo-top" class="${activeKey === "catalogo" ? "active" : ""}">${t("navCatalogo")}</a>
+      <div class="nav-dropdown-menu">${catDropdownHTML}</div>
+    </div>`;
 
   return `
     <div class="wrap header-bar">
       <a class="wordmark" href="index.html"><img src="https://blizzcool.es/wp-content/uploads/2025/12/cropped-cropped-LOGO-3-600x78-1.avif" alt="Blizzcool" class="logo-img"></a>
 
-      <nav class="site-nav">${navHTML}${shareDesktop}</nav>
+      <nav class="site-nav">${navDesktopHTML}</nav>
 
       <div class="header-right">
-        <div class="header-meta">
-          <a href="mailto:${CONTACTO.email}">${CONTACTO.email}</a> · <a href="tel:${CONTACTO.telefono}">${CONTACTO.telefonoDisplay}</a><br>
-          ${CONTACTO.direccion}
-        </div>
+        <a class="btn-nav-contact" href="contacto.html">${t("navContacto")}</a>
+        <button type="button" class="btn-nav-share js-share-open">${t("compartir")}</button>
       </div>
 
       <div class="header-actions">
@@ -300,7 +346,7 @@ function ivaFloatHTML() {
   const activo = ivaActivo();
   return `
     <button type="button" class="iva-float js-iva-toggle" aria-pressed="${activo}" title="${activo ? t("ivaToggleOn") : t("ivaToggleOff")}">
-      <span class="iva-float-top">IVA</span>
+      <span class="iva-float-top">${t("ivaLabel")}</span>
       <span class="iva-float-state">${activo ? t("ivaFloatOn") : t("ivaFloatOff")}</span>
     </button>`;
 }
@@ -375,11 +421,9 @@ function initChrome(activeKey) {
 
   initShare();
 
-  document.querySelectorAll(".js-lang").forEach((btn) => {
+  document.querySelectorAll(".js-lang-toggle").forEach((btn) => {
     btn.addEventListener("click", () => {
-      const l = btn.getAttribute("data-lang");
-      if (l === lang()) return;
-      setLang(l);
+      setLang(lang() === "es" ? "en" : "es");
       if (typeof window.renderPage === "function") window.renderPage();
     });
   });
@@ -453,11 +497,8 @@ function variantesHTML(p) {
 }
 
 function codigosHTML(p) {
-  const filas = [];
-  if (p.sageTools) filas.push(`<tr><td>${t("sageToolsLabel")}</td><td>${p.sageTools}</td></tr>`);
-  if (p.gid) filas.push(`<tr><td>${t("gidLabel")}</td><td>${p.gid}</td></tr>`);
-  if (filas.length === 0) return "";
-  return `<h2>${t("referenciaInterna")}</h2><table class="specs-table">${filas.join("")}</table>`;
+  if (!p.sageTools) return "";
+  return `<h2>${t("referenciaInterna")}</h2><table class="specs-table"><tr><td>${t("sageToolsLabel")}</td><td>${p.sageTools}</td></tr></table>`;
 }
 
 function renderProducto() {
@@ -505,7 +546,7 @@ function renderProducto() {
     </nav>
 
     <div class="wrap product-hero">
-      <div class="product-media">${mediaHTML(p, p.nombre)}</div>
+      <div class="product-media">${productMediaHTML(p)}</div>
       <div class="product-info">
         <div class="card-model">${p.id.toUpperCase()} · ${catNombre}</div>
         <h1>${p.nombre}</h1>
@@ -544,6 +585,7 @@ function renderProducto() {
     </div>`;
 
   actualizarPreciosEnPagina();
+  initProductGallery();
 }
 
 /* ---------- Página de contacto ---------- */

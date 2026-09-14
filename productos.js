@@ -5,7 +5,9 @@
  * siempre SIN IVA. El sitio calcula el 21% de IVA con el interruptor de la cabecera.
  *
  * Cómo alimentar este fichero:
- * - imagen: ruta a la foto del equipo (ej. "img/ac-1900-1.jpg"). Déjalo en null si aún no hay foto.
+ * - imagen: ruta a la foto principal del equipo (ej. "img/ac-1900-1.jpg"). Déjalo en null si aún no hay foto.
+ * - imagenes: opcional, array con fotos adicionales para la galería de la ficha de producto
+ *   (ej. ["img/ac-1900-1-2.jpg", "img/ac-1900-1-3.jpg"]). No hace falta repetir la de "imagen".
  * - pvp: precio de venta al público SIN IVA (número). Es el precio de referencia de la tarifa.
  * - specs: lista de { label, value } — lo que sale en la ficha técnica.
  * - sageTools / gid: códigos internos de la tarifa, se muestran como referencia en la ficha.
