@@ -34,7 +34,7 @@ const STR = {
     ctaProductTitle: "¿Quieres presupuesto para este equipo?",
     ctaProductText: "Indícanos cantidad, ubicación y plazo. Te respondemos con la propuesta ajustada a tu caso.",
     ctaProductBtn: "Pedir presupuesto",
-    fichaTecnicaLink: "Ficha técnica",
+    fichaTecnicaLink: "Ver producto",
     precioConsultar: "Precio a consultar",
     ivaInclNote: "IVA incl.", sinIvaNote: "sin IVA",
     ivaInclNoteBig: "· IVA incluido (21%)", sinIvaNoteBig: "· precio sin IVA",
@@ -71,6 +71,8 @@ const STR = {
     compartirTexto: "Escanea el código con la cámara del móvil o copia el enlace.",
     copiarEnlace: "Copiar enlace", enlaceCopiado: "Enlace copiado", compartirNativo: "Compartir…",
     descargarQR: "Descargar QR", cerrar: "Cerrar",
+    verEnGrande: "Ver foto en grande",
+    fotoAnterior: "Foto anterior", fotoSiguiente: "Foto siguiente",
   },
   en: {
     navInicio: "Home", navCatalogo: "Catalog", navContacto: "Contact",
@@ -84,7 +86,7 @@ const STR = {
     ctaProductTitle: "Want a quote for this unit?",
     ctaProductText: "Tell us the quantity, location and timeframe. We'll get back to you with a proposal tailored to your case.",
     ctaProductBtn: "Request a quote",
-    fichaTecnicaLink: "Datasheet",
+    fichaTecnicaLink: "View product",
     precioConsultar: "Price on request",
     ivaInclNote: "VAT incl.", sinIvaNote: "excl. VAT",
     ivaInclNoteBig: "· VAT included (21%)", sinIvaNoteBig: "· price excl. VAT",
@@ -121,6 +123,8 @@ const STR = {
     compartirTexto: "Scan the code with your phone camera or copy the link.",
     copiarEnlace: "Copy link", enlaceCopiado: "Link copied", compartirNativo: "Share…",
     descargarQR: "Download QR", cerrar: "Close",
+    verEnGrande: "View full-size photo",
+    fotoAnterior: "Previous photo", fotoSiguiente: "Next photo",
   },
 };
 function t(key) {
@@ -196,23 +200,85 @@ function productMediaHTML(p) {
         )
         .join("")}</div>`
     : "";
+  const navHTML = fotos.length > 1
+    ? `<button type="button" class="photo-lightbox-nav photo-lightbox-prev js-lightbox-prev" aria-label="${t("fotoAnterior")}">‹</button>
+       <button type="button" class="photo-lightbox-nav photo-lightbox-next js-lightbox-next" aria-label="${t("fotoSiguiente")}">›</button>`
+    : "";
   return `
     <div class="product-gallery">
-      <div class="product-gallery-main"><img id="product-main-photo" src="${fotos[0]}" alt="${p.nombre}"></div>
+      <div class="product-gallery-main"><img id="product-main-photo" src="${fotos[0]}" alt="${p.nombre}" tabindex="0" role="button" aria-label="${t("verEnGrande")}"></div>
       ${thumbsHTML}
+    </div>
+    <div id="photo-lightbox" class="photo-lightbox" hidden>
+      <div class="photo-lightbox-backdrop js-lightbox-close"></div>
+      <button type="button" class="photo-lightbox-close js-lightbox-close" aria-label="${t("cerrar")}">×</button>
+      ${navHTML}
+      <img id="photo-lightbox-img" src="" alt="">
     </div>`;
 }
 
 function initProductGallery() {
   const main = document.getElementById("product-main-photo");
-  const thumbs = document.querySelectorAll(".product-thumb");
-  if (!main || !thumbs.length) return;
-  thumbs.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      main.src = btn.getAttribute("data-src");
-      thumbs.forEach((b) => b.classList.toggle("active", b === btn));
-    });
+  if (!main) return;
+
+  const thumbs = Array.from(document.querySelectorAll(".product-thumb"));
+  const fotos = thumbs.length ? thumbs.map((b) => b.getAttribute("data-src")) : [main.getAttribute("src")];
+  let current = 0;
+
+  const setMain = (index) => {
+    current = (index + fotos.length) % fotos.length;
+    main.src = fotos[current];
+    thumbs.forEach((b, i) => b.classList.toggle("active", i === current));
+  };
+
+  thumbs.forEach((btn, i) => btn.addEventListener("click", () => setMain(i)));
+
+  const lightbox = document.getElementById("photo-lightbox");
+  const lightboxImg = document.getElementById("photo-lightbox-img");
+  if (!lightbox || !lightboxImg) return;
+
+  // Se mueve a <body> para escapar del contexto de apilamiento del contenedor sticky de la galería
+  document.body.appendChild(lightbox);
+
+  const showInLightbox = (index) => {
+    setMain(index);
+    lightboxImg.src = fotos[current];
+    lightboxImg.alt = main.alt;
+  };
+  const open = () => {
+    showInLightbox(current);
+    lightbox.hidden = false;
+    document.body.classList.add("lightbox-open");
+  };
+  const close = () => {
+    lightbox.hidden = true;
+    document.body.classList.remove("lightbox-open");
+  };
+  const prev = () => showInLightbox(current - 1);
+  const next = () => showInLightbox(current + 1);
+
+  main.addEventListener("click", open);
+  main.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
   });
+  lightbox.querySelectorAll(".js-lightbox-close").forEach((el) => el.addEventListener("click", close));
+  lightbox.querySelectorAll(".js-lightbox-prev").forEach((el) => el.addEventListener("click", (e) => { e.stopPropagation(); prev(); }));
+  lightbox.querySelectorAll(".js-lightbox-next").forEach((el) => el.addEventListener("click", (e) => { e.stopPropagation(); next(); }));
+  document.addEventListener("keydown", (e) => {
+    if (lightbox.hidden) return;
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowLeft") prev();
+    else if (e.key === "ArrowRight") next();
+  });
+
+  let touchStartX = null;
+  lightbox.addEventListener("touchstart", (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+  lightbox.addEventListener("touchend", (e) => {
+    if (touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) (dx > 0 ? prev() : next());
+    touchStartX = null;
+  }, { passive: true });
 }
 
 function cardHTML(p) {
