@@ -24,8 +24,8 @@ function setLang(l) {
 const STR = {
   es: {
     navInicio: "Inicio", navCatalogo: "Catálogo", navContacto: "Contacto",
-    heroTitle: "Equipos de climatización, frío y protección térmica industrial.",
-    heroSubtitle: "Aire acondicionado portátil, enfriadores evaporativos, nebulizadores, ventilación industrial y ropa refrigerante. Un catálogo, una ficha técnica por equipo.",
+    heroTitle: "Equipos de climatización, frío y protección térmica para uso industrial y deportivo.",
+    heroSubtitle: "Aire acondicionado portátil, enfriadores evaporativos, nebulizadores, ventilación y ropa refrigerante para naves, talleres, eventos e instalaciones deportivas. Un catálogo, una ficha técnica por equipo.",
     statTotal: "Equipos en catálogo", statCategorias: "Familias de producto",
     statFotos: "Hasta 15 °C menos en condiciones óptimas", statPrecios: "Sin obra: equipos portátiles con enchufe estándar",
     ctaBandTitle: "¿No encuentras el equipo adecuado para tu espacio?",
@@ -40,6 +40,11 @@ const STR = {
     ivaInclNoteBig: "· IVA incluido (21%)", sinIvaNoteBig: "· precio sin IVA",
     ivaToggleOn: "Precios con IVA (21%)", ivaToggleOff: "Precios sin IVA",
     ivaLabel: "IVA",
+    desdeLabel: "Desde", hastaLabel: "hasta",
+    elegirModeloTitle: "Elige tu modelo",
+    casosDeUsoTitle: "Casos de uso",
+    verFichaPdf: "Ver ficha técnica (PDF)",
+    comprarBlizzcool: "Comprar este equipo",
     equiposEnCatalogo: (n) => `${n} equipo${n > 1 ? "s" : ""} en catálogo`,
     breadcrumbCatalogo: "Catálogo",
     descripcionTitle: "Descripción", fichaTecnicaTitle: "Ficha técnica", aplicacionesTitle: "Aplicaciones",
@@ -63,10 +68,11 @@ const STR = {
     contactoFormText: "Este botón abre tu programa de correo con el destinatario ya rellenado.",
     contactoEscribirEmail: "Escribir un email",
     contactoAbrirWhatsapp: "Abrir WhatsApp",
-    drawerMenu: "Menú", drawerFamilias: "Familias de producto",
+    drawerMenu: "Menú",
+    temaOscuro: "Modo oscuro",
     drawerWhatsapp: "Escríbenos por WhatsApp",
     idioma: "Idioma",
-    ivaFloatOn: "incl.", ivaFloatOff: "sin",
+    ivaFloatOn: "incl.", ivaFloatOff: "excl.",
     compartir: "Compartir / código QR", compartirTitulo: "Compartir esta página",
     compartirTexto: "Escanea el código con la cámara del móvil o copia el enlace.",
     copiarEnlace: "Copiar enlace", enlaceCopiado: "Enlace copiado", compartirNativo: "Compartir…",
@@ -76,8 +82,8 @@ const STR = {
   },
   en: {
     navInicio: "Home", navCatalogo: "Catalog", navContacto: "Contact",
-    heroTitle: "Industrial climate control, cooling and thermal protection equipment.",
-    heroSubtitle: "Portable air conditioning, evaporative coolers, misting fans, industrial ventilation and cooling workwear. One catalog, one datasheet per unit.",
+    heroTitle: "Climate control, cooling and thermal protection equipment for industry and sport.",
+    heroSubtitle: "Portable air conditioning, evaporative coolers, misting fans, ventilation and cooling workwear for factories, workshops, events and sports facilities. One catalog, one datasheet per unit.",
     statTotal: "Products in catalog", statCategorias: "Product families",
     statFotos: "Up to 15 °C cooler in optimal conditions", statPrecios: "No building work: portable units on a standard plug",
     ctaBandTitle: "Can't find the right equipment for your space?",
@@ -92,6 +98,11 @@ const STR = {
     ivaInclNoteBig: "· VAT included (21%)", sinIvaNoteBig: "· price excl. VAT",
     ivaToggleOn: "Prices incl. VAT (21%)", ivaToggleOff: "Prices excl. VAT",
     ivaLabel: "VAT",
+    desdeLabel: "From", hastaLabel: "to",
+    elegirModeloTitle: "Choose your model",
+    casosDeUsoTitle: "Use cases",
+    verFichaPdf: "View datasheet (PDF)",
+    comprarBlizzcool: "Buy this unit",
     equiposEnCatalogo: (n) => `${n} product${n > 1 ? "s" : ""} in catalog`,
     breadcrumbCatalogo: "Catalog",
     descripcionTitle: "Description", fichaTecnicaTitle: "Datasheet", aplicacionesTitle: "Applications",
@@ -115,7 +126,8 @@ const STR = {
     contactoFormText: "This button opens your email app with the recipient already filled in.",
     contactoEscribirEmail: "Write an email",
     contactoAbrirWhatsapp: "Open WhatsApp",
-    drawerMenu: "Menu", drawerFamilias: "Product families",
+    drawerMenu: "Menu",
+    temaOscuro: "Dark mode",
     drawerWhatsapp: "Message us on WhatsApp",
     idioma: "Language",
     ivaFloatOn: "incl.", ivaFloatOff: "excl.",
@@ -143,6 +155,91 @@ const CONTACTO = {
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("C/ Segorbe 45, 03206 Elche, Alicante"),
 };
 
+const PRODUCTOS_CON_FICHA = new Set([
+  "ac-1900-1", "ac-2700-1", "ac-3500-2", "ac-5300-3",
+  "bc-200", "bc-290", "bc-395",
+  "bp-600", "bp-900", "bp-1200",
+  "bsm-160l", "bsm-380l",
+  "fam240", "fam300", "fam370", "fam430", "fam500", "fam610",
+  "gd-120", "gd-150", "gd-200",
+]);
+
+function fichaTecnicaUrl(p) {
+  return PRODUCTOS_CON_FICHA.has(p.id) ? `fichas/${p.id}.pdf` : null;
+}
+
+const URLS_BLIZZCOOL = {
+  "ac-1900-1": "https://blizzcool.es/aire-acondicionado-industrial/aire-acondicionado-portatil-blizzcool-ac1900-1/",
+  "ac-2700-1": "https://blizzcool.es/aire-acondicionado-industrial/blizzcool-ac2700-1/",
+  "ac-3500-2": "https://blizzcool.es/aire-acondicionado-industrial/blizzcool-ac3500-2/",
+  "ac-5300-3": "https://blizzcool.es/aire-acondicionado-industrial/blizzcool-ac5300-3/",
+  "bc-200": "https://blizzcool.es/climatizador-evaporativo/enfriador-evaporativo-portatil-blizzcool-bc-200-industrial/",
+  "bc-290": "https://blizzcool.es/climatizador-evaporativo/enfriador-evaporativo-portatil-blizzcool-bc-290-industrial/",
+  "bc-395": "https://blizzcool.es/climatizador-evaporativo/enfriador-evaporativo-portatil-blizzcool-bc-395-industrial/",
+  "bsm-160l": "https://blizzcool.es/nebulizadores/enfriador-nebulizador-bsm160l/",
+  "bsm-380l": "https://blizzcool.es/nebulizadores/enfriador-nebulizador-bsm380l/",
+  fam240: "https://blizzcool.es/ventilador-industrial/techo/ventilador-techo-bizzcool-bw-fam240-o2400-mm/",
+  fam300: "https://blizzcool.es/ventilador-industrial/techo/ventilador-de-techo-industrial-bizzcool-bw-fam300-o3000-mm/",
+  fam370: "https://blizzcool.es/ventilador-industrial/techo/ventilador-de-techo-industrial-bizzcool-bw-fam370-o3700-mm/",
+  fam430: "https://blizzcool.es/ventilador-industrial/techo/ventilador-de-techo-industrial-bizzcool-bwp-fam430-o4300-mm/",
+  fam500: "https://blizzcool.es/ventilador-industrial/techo/ventilador-de-techo-industrial-bizzcool-bwp-fam500-o5000-mm/",
+  fam610: "https://blizzcool.es/ventilador-industrial/techo/ventilador-de-techo-industrial-bizzcool-bwp-fam610-o6100-mm/",
+  "bp-600": "https://blizzcool.es/ventilador-industrial/pared/ventilador-industrial-pared-bp-600/",
+  "bp-900": "https://blizzcool.es/ventilador-industrial/pared/ventilador-industrial-pared-bp-900/",
+  "bp-1200": "https://blizzcool.es/ventilador-industrial/pared/ventilador-industrial-pared-bp-1200/",
+  "gd-120": "https://blizzcool.es/ventilador-industrial/portatil/ventilador-movil-industrial-blizzcool-gd120-o1200/",
+  "gd-150": "https://blizzcool.es/ventilador-industrial/portatil/ventilador-movil-industrial-blizzcool-gd150-o1500/",
+  "gd-200": "https://blizzcool.es/ventilador-industrial/portatil/ventilador-movil-industrial-blizzcool-gd200-o2000-mm/",
+  bw05: "https://blizzcool.es/ropa-termica/chalecos/chaleco-de-trabajo-refrescante-bw05/",
+  "bw02-pcm": "https://blizzcool.es/ropa-termica/chalecos/chaleco-refrigerante-pcm-bw02/",
+  bw04: "https://blizzcool.es/ropa-termica/chalecos/chaleco-deportivo-refrescante-bw04/",
+  bw08: "https://blizzcool.es/ropa-termica/chalecos/chaleco-reflectante-refrescante-bw08/",
+  "bw01-pcm": "https://blizzcool.es/ropa-termica/chalecos/chaleco-refrigerante-pcm-bw01/",
+  "pack-pc01": "https://blizzcool.es/ropa-termica/placas/pack-placas-refrigerantes-4-unidades-pc01/",
+  "helice-bc": "https://blizzcool.es/recambios/recambios-enfriador-evaporativo/helices-enfriador/",
+  "parrilla-bc": "https://blizzcool.es/recambios/recambios-enfriador-evaporativo/parrilla-enfriador/",
+  "generador-anion": "https://blizzcool.es/recambios/recambios-enfriador-evaporativo/generador-de-anion/",
+  "panel-control-bc": "https://blizzcool.es/recambios/recambios-enfriador-evaporativo/panel-de-control-enfriador-bc200-bc290-bc395/",
+  "filtros-bc": "https://blizzcool.es/recambios/recambios-enfriador-evaporativo/filtro-blizzcool-enfriador/",
+  "bomba-bc": "https://blizzcool.es/recambios/recambios-enfriador-evaporativo/bomba-blizzcool-enfriador-bc200-bc290/",
+};
+
+function urlCompraBlizzcool(p) {
+  const base = URLS_BLIZZCOOL[p.id];
+  if (!base) return null;
+  const params = new URLSearchParams({
+    utm_source: "catalogo-interno",
+    utm_medium: "referral",
+    utm_campaign: p.id,
+  });
+  return `${base}?${params.toString()}`;
+}
+
+const CASOS_USO_POR_CATEGORIA = {
+  "enfriadores-evaporativos": [
+    { img: "img/evaporativos-casos/futbol.png", label: "Eventos y bancos deportivos al aire libre", labelEn: "Outdoor sports events and benches" },
+    { img: "img/evaporativos-casos/fundicion-1.png", label: "Fundición y metalurgia", labelEn: "Foundries and metalworking" },
+    { img: "img/evaporativos-casos/fundicion-2.jpg", label: "Fundición y metalurgia", labelEn: "Foundries and metalworking" },
+    { img: "img/evaporativos-casos/logistica-1.png", label: "Almacenes y centros logísticos", labelEn: "Warehouses and logistics centres" },
+    { img: "img/evaporativos-casos/logistica-2.png", label: "Talleres y naves industriales", labelEn: "Workshops and industrial buildings" },
+    { img: "img/evaporativos-casos/muelle-carga.jpg", label: "Muelles de carga", labelEn: "Loading docks" },
+  ],
+  "ventiladores-pared": [
+    { img: "img/v-pared-casos/pared-caso-1.jpg", label: "Talleres mecánicos", labelEn: "Mechanical workshops" },
+    { img: "img/v-pared-casos/pared-caso-2.jpg", label: "Naves de producción", labelEn: "Production buildings" },
+    { img: "img/v-pared-casos/pared-caso-3.jpg", label: "Almacenes y logística", labelEn: "Warehouses and logistics" },
+    { img: "img/v-pared-casos/pared-caso-4.jpg", label: "Líneas de montaje", labelEn: "Assembly lines" },
+  ],
+  "ventiladores-portatiles": [
+    { img: "img/v-portatiles-casos/portatil-caso-1.jpg", label: "Eventos y festivales al aire libre", labelEn: "Outdoor events and festivals" },
+    { img: "img/v-portatiles-casos/portatil-caso-2.jpg", label: "Naves y talleres", labelEn: "Industrial buildings and workshops" },
+    { img: "img/v-portatiles-casos/portatil-caso-3.jpg", label: "Almacenes y logística", labelEn: "Warehouses and logistics" },
+    { img: "img/v-portatiles-casos/portatil-caso-4.jpg", label: "Ferias y exposiciones", labelEn: "Trade fairs and exhibitions" },
+    { img: "img/v-portatiles-casos/portatil-caso-5.jpg", label: "Zonas de descanso y catering", labelEn: "Rest areas and catering" },
+    { img: "img/v-portatiles-casos/portatil-caso-6.jpg", label: "Gimnasios al aire libre", labelEn: "Outdoor gyms" },
+  ],
+};
+
 /* ---------- Precio ---------- */
 
 function calcularPrecio(pvp) {
@@ -156,6 +253,14 @@ function calcularPrecio(pvp) {
   const localeStr = lang() === "en" ? "en-IE" : "de-DE"; // de-DE fuerza el punto de millares (2.189,00 €) también en 4 cifras
   const texto = total.toLocaleString(localeStr, { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 });
   return { texto, pendiente: false, conIva };
+}
+
+function tieneVariantesConPrecio(p) {
+  return Array.isArray(p.variantes) && p.variantes.length > 0 && p.variantes[0].pvp != null;
+}
+function rangoVariantesPrecio(p) {
+  const pvps = p.variantes.map((v) => v.pvp);
+  return { min: Math.min(...pvps), max: Math.max(...pvps) };
 }
 
 function nombreCategoria(id) {
@@ -184,8 +289,10 @@ function mediaHTML(producto, alt) {
 }
 
 function galeriaProducto(p) {
-  const fotos = [p.imagen, ...(p.imagenes || [])].filter(Boolean);
-  return [...new Set(fotos)];
+  const normalizar = (item) => (typeof item === "string" ? { src: item, fit: "fill" } : item);
+  const lista = [p.imagen ? { src: p.imagen, fit: "contain" } : null, ...(p.imagenes || []).map(normalizar)].filter(Boolean);
+  const vistos = new Set();
+  return lista.filter((f) => (vistos.has(f.src) ? false : (vistos.add(f.src), true)));
 }
 
 function productMediaHTML(p) {
@@ -196,7 +303,7 @@ function productMediaHTML(p) {
   const thumbsHTML = fotos.length > 1
     ? `<div class="product-thumbs">${fotos
         .map(
-          (src, i) => `<button type="button" class="product-thumb ${i === 0 ? "active" : ""}" data-src="${src}" aria-label="${p.nombre} ${i + 1}"><img src="${src}" alt="" loading="lazy"></button>`
+          (f, i) => `<button type="button" class="product-thumb ${i === 0 ? "active" : ""}" data-src="${f.src}" data-fit="${f.fit}" aria-label="${p.nombre} ${i + 1}"><img src="${f.src}" alt="" loading="lazy"></button>`
         )
         .join("")}</div>`
     : "";
@@ -204,16 +311,29 @@ function productMediaHTML(p) {
     ? `<button type="button" class="photo-lightbox-nav photo-lightbox-prev js-lightbox-prev" aria-label="${t("fotoAnterior")}">‹</button>
        <button type="button" class="photo-lightbox-nav photo-lightbox-next js-lightbox-next" aria-label="${t("fotoSiguiente")}">›</button>`
     : "";
+  const lightboxThumbsHTML = fotos.length > 1
+    ? `<div class="lightbox-thumbs">${fotos
+        .map((f, i) => `<button type="button" class="lightbox-thumb ${i === 0 ? "active" : ""}" data-index="${i}" aria-label="${p.nombre} ${i + 1}"><img src="${f.src}" alt="" loading="lazy"></button>`)
+        .join("")}</div>`
+    : "";
   return `
     <div class="product-gallery">
-      <div class="product-gallery-main"><img id="product-main-photo" src="${fotos[0]}" alt="${p.nombre}" tabindex="0" role="button" aria-label="${t("verEnGrande")}"></div>
+      <div class="product-gallery-main">
+        <img id="product-main-photo" src="${fotos[0].src}" alt="${p.nombre}" tabindex="0" role="button" aria-label="${t("verEnGrande")}">
+        <button type="button" class="gallery-expand-btn js-gallery-expand" aria-label="${t("verEnGrande")}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        </button>
+      </div>
       ${thumbsHTML}
     </div>
     <div id="photo-lightbox" class="photo-lightbox" hidden>
       <div class="photo-lightbox-backdrop js-lightbox-close"></div>
       <button type="button" class="photo-lightbox-close js-lightbox-close" aria-label="${t("cerrar")}">×</button>
-      ${navHTML}
-      <img id="photo-lightbox-img" src="" alt="">
+      <div class="photo-lightbox-stage">
+        ${navHTML}
+        <img id="photo-lightbox-img" src="" alt="">
+      </div>
+      ${lightboxThumbsHTML}
     </div>`;
 }
 
@@ -222,12 +342,15 @@ function initProductGallery() {
   if (!main) return;
 
   const thumbs = Array.from(document.querySelectorAll(".product-thumb"));
-  const fotos = thumbs.length ? thumbs.map((b) => b.getAttribute("data-src")) : [main.getAttribute("src")];
+  const fotos = thumbs.length
+    ? thumbs.map((b) => ({ src: b.getAttribute("data-src"), fit: b.getAttribute("data-fit") || "contain" }))
+    : [{ src: main.getAttribute("src"), fit: main.classList.contains("is-fill") ? "fill" : "contain" }];
   let current = 0;
 
   const setMain = (index) => {
     current = (index + fotos.length) % fotos.length;
-    main.src = fotos[current];
+    main.src = fotos[current].src;
+    main.classList.toggle("is-fill", fotos[current].fit === "fill");
     thumbs.forEach((b, i) => b.classList.toggle("active", i === current));
   };
 
@@ -240,11 +363,14 @@ function initProductGallery() {
   // Se mueve a <body> para escapar del contexto de apilamiento del contenedor sticky de la galería
   document.body.appendChild(lightbox);
 
+  const lightboxThumbs = Array.from(lightbox.querySelectorAll(".lightbox-thumb"));
   const showInLightbox = (index) => {
     setMain(index);
-    lightboxImg.src = fotos[current];
+    lightboxImg.src = fotos[current].src;
     lightboxImg.alt = main.alt;
+    lightboxThumbs.forEach((b, i) => b.classList.toggle("active", i === current));
   };
+  lightboxThumbs.forEach((btn, i) => btn.addEventListener("click", () => showInLightbox(i)));
   const open = () => {
     showInLightbox(current);
     lightbox.hidden = false;
@@ -261,6 +387,8 @@ function initProductGallery() {
   main.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
   });
+  const expandBtn = document.querySelector(".js-gallery-expand");
+  if (expandBtn) expandBtn.addEventListener("click", (e) => { e.stopPropagation(); open(); });
   lightbox.querySelectorAll(".js-lightbox-close").forEach((el) => el.addEventListener("click", close));
   lightbox.querySelectorAll(".js-lightbox-prev").forEach((el) => el.addEventListener("click", (e) => { e.stopPropagation(); prev(); }));
   lightbox.querySelectorAll(".js-lightbox-next").forEach((el) => el.addEventListener("click", (e) => { e.stopPropagation(); next(); }));
@@ -282,8 +410,11 @@ function initProductGallery() {
 }
 
 function cardHTML(p) {
-  const precio = calcularPrecio(p.pvp);
+  const esRango = tieneVariantesConPrecio(p);
+  const pvpBase = esRango ? rangoVariantesPrecio(p).min : p.pvp;
+  const precio = calcularPrecio(pvpBase);
   const nota = precio.pendiente ? "" : precio.conIva ? ` ${t("ivaInclNote")}` : ` ${t("sinIvaNote")}`;
+  const precioTexto = esRango ? `${t("desdeLabel")} ${precio.texto}` : precio.texto;
   return `
     <a class="card" href="producto.html?id=${p.id}">
       <div class="card-media">${mediaHTML(p, p.nombre)}</div>
@@ -293,7 +424,7 @@ function cardHTML(p) {
         <p class="card-summary">${textoProducto(p, "resumen")}</p>
       </div>
       <div class="card-foot">
-        <span class="price ${precio.pendiente ? "pending" : ""}" data-pvp="${p.pvp ?? ""}">${precio.texto}<span class="iva-note">${nota}</span></span>
+        <span class="price ${precio.pendiente ? "pending" : ""} ${esRango ? "is-range" : ""}" data-pvp="${pvpBase ?? ""}">${precioTexto}<span class="iva-note">${nota}</span></span>
         <span class="link-inline">${t("fichaTecnicaLink")}</span>
       </div>
     </a>`;
@@ -303,19 +434,24 @@ function cardHTML(p) {
 
 function chromeHTML(activeKey) {
   const L = lang();
-  const navItems = [
-    { key: "inicio", href: "index.html", label: t("navInicio") },
-    { key: "catalogo", href: "index.html#catalogo-top", label: t("navCatalogo") },
-    { key: "contacto", href: "contacto.html", label: t("navContacto") },
-  ];
   const langSeg = `
     <button type="button" class="lang-seg js-lang-toggle" role="switch" aria-checked="${L === "en"}" aria-label="Idioma / Language">
       <span class="lang-opt ${L === "es" ? "active" : ""}">ES</span>
       <span class="lang-opt ${L === "en" ? "active" : ""}">EN</span>
     </button>`;
-  const navHTML = navItems
-    .map((n) => `<a href="${n.href}" class="${activeKey === n.key ? "active" : ""}">${n.label}</a>`)
-    .join("");
+  const themeToggle = `
+    <button type="button" class="theme-toggle js-theme-toggle" aria-label="${t("temaOscuro")}">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>`;
+  const drawerCatsHTML = CATEGORIAS.map((c) => `<a href="index.html#${c.id}">${nombreCategoria(c.id)}</a>`).join("");
+  const mobileNavHTML = `
+    <a href="index.html" class="${activeKey === "inicio" ? "active" : ""}">${t("navInicio")}</a>
+    <button type="button" id="drawer-cats-toggle" class="drawer-acc" aria-expanded="false" aria-controls="drawer-cats">
+      <span>${t("navCatalogo")}</span>
+    </button>
+    <div id="drawer-cats" class="drawer-cats">${drawerCatsHTML}</div>
+    <a href="contacto.html" class="${activeKey === "contacto" ? "active" : ""}">${t("navContacto")}</a>`;
 
   const catDropdownHTML = CATEGORIAS
     .map((c) => `<a href="index.html#${c.id}">${nombreCategoria(c.id)}</a>`)
@@ -340,6 +476,7 @@ function chromeHTML(activeKey) {
       </div>
 
       <div class="header-actions">
+        ${themeToggle}
         ${langSeg}
         <button type="button" id="menu-toggle" class="menu-toggle" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -354,13 +491,7 @@ function chromeHTML(activeKey) {
         <button type="button" id="drawer-close" class="drawer-close" aria-label="Cerrar">×</button>
       </div>
       <nav class="mobile-nav">
-        ${navHTML}
-        <button type="button" id="drawer-cats-toggle" class="drawer-acc" aria-expanded="false" aria-controls="drawer-cats">
-          <span>${t("drawerFamilias")}</span>
-        </button>
-        <div id="drawer-cats" class="drawer-cats">
-          ${CATEGORIAS.map((c) => `<a href="index.html#${c.id}">${nombreCategoria(c.id)}</a>`).join("")}
-        </div>
+        ${mobileNavHTML}
       </nav>
       <div class="mobile-menu-row">
         <span class="mobile-menu-row-label">${t("idioma")}</span>
@@ -424,11 +555,21 @@ function actualizarPreciosEnPagina() {
     const precio = calcularPrecio(pvp);
     el.classList.toggle("pending", precio.pendiente);
     const nota = precio.pendiente ? "" : precio.conIva ? ` ${t("ivaInclNote")}` : ` ${t("sinIvaNote")}`;
-    el.innerHTML = `${precio.texto}<span class="iva-note">${nota}</span>`;
+    const prefijo = el.classList.contains("is-range") ? `${t("desdeLabel")} ` : "";
+    el.innerHTML = `${prefijo}${precio.texto}<span class="iva-note">${nota}</span>`;
   });
   document.querySelectorAll(".price-big[data-pvp]").forEach((el) => {
     const pvpRaw = el.getAttribute("data-pvp");
     const pvp = pvpRaw === "" ? null : Number(pvpRaw);
+    const pvpMaxRaw = el.getAttribute("data-pvp-max");
+    if (pvpMaxRaw !== null) {
+      const precioMin = calcularPrecio(pvp);
+      const precioMax = calcularPrecio(Number(pvpMaxRaw));
+      el.classList.remove("pending");
+      const nota = precioMin.conIva ? ` ${t("ivaInclNoteBig")}` : ` ${t("sinIvaNoteBig")}`;
+      el.innerHTML = `${t("desdeLabel")} ${precioMin.texto} ${t("hastaLabel")} ${precioMax.texto}<span class="iva-note-big">${nota}</span>`;
+      return;
+    }
     const precio = calcularPrecio(pvp);
     el.classList.toggle("pending", precio.pendiente);
     const nota = precio.pendiente ? "" : precio.conIva ? ` ${t("ivaInclNoteBig")}` : ` ${t("sinIvaNoteBig")}`;
@@ -493,6 +634,15 @@ function initChrome(activeKey) {
       if (typeof window.renderPage === "function") window.renderPage();
     });
   });
+
+  document.querySelectorAll(".js-theme-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      if (isDark) document.documentElement.removeAttribute("data-theme");
+      else document.documentElement.setAttribute("data-theme", "dark");
+      try { localStorage.setItem("bc-theme", isDark ? "light" : "dark"); } catch (e) {}
+    });
+  });
 }
 
 /* ---------- Página índice ---------- */
@@ -541,12 +691,69 @@ function renderIndex() {
   document.getElementById("stat-precios").textContent = "0 " + (lang() === "en" ? "works" : "obras");
 
   document.documentElement.lang = lang();
+
+  initCatNavScrollSpy();
+}
+
+let catNavObserver = null;
+
+function initCatNavScrollSpy() {
+  if (catNavObserver) catNavObserver.disconnect();
+
+  const nav = document.getElementById("cat-nav-list");
+  const sections = document.querySelectorAll(".cat-section[id]");
+  if (!nav || !sections.length) return;
+
+  const links = Array.from(nav.querySelectorAll("a"));
+  const linkById = {};
+  links.forEach((a) => { linkById[a.getAttribute("href").slice(1)] = a; });
+
+  // El scroll automático no debe pelear con un arrastre manual del usuario en la barra
+  let userInteracting = false;
+  let resumeTimer = null;
+  const pauseAutoScroll = () => {
+    userInteracting = true;
+    clearTimeout(resumeTimer);
+  };
+  const resumeAutoScrollSoon = () => {
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => { userInteracting = false; }, 1500);
+  };
+  nav.addEventListener("pointerdown", pauseAutoScroll);
+  nav.addEventListener("pointerup", resumeAutoScrollSoon);
+  nav.addEventListener("pointercancel", resumeAutoScrollSoon);
+  nav.addEventListener("touchstart", pauseAutoScroll, { passive: true });
+  nav.addEventListener("touchend", resumeAutoScrollSoon, { passive: true });
+  nav.addEventListener("wheel", () => { pauseAutoScroll(); resumeAutoScrollSoon(); }, { passive: true });
+
+  const setActive = (id) => {
+    const activeLink = linkById[id];
+    if (!activeLink) return;
+    links.forEach((a) => a.classList.toggle("active", a === activeLink));
+    if (userInteracting) return; // el usuario está desplazando la barra a mano: no interferir
+    // Se desplaza solo la barra horizontal de píldoras, nunca el scroll vertical de la página
+    const wrapRect = nav.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+    const delta = (linkRect.left + linkRect.width / 2) - (wrapRect.left + wrapRect.width / 2);
+    nav.scrollTo({ left: nav.scrollLeft + delta, behavior: "smooth" });
+  };
+
+  catNavObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    },
+    { rootMargin: "-110px 0px -75% 0px", threshold: 0 }
+  );
+  sections.forEach((sec) => catNavObserver.observe(sec));
 }
 
 /* ---------- Página de producto ---------- */
 
 function variantesHTML(p) {
   if (!p.variantes || p.variantes.length === 0) return "";
+  if (tieneVariantesConPrecio(p)) return ""; // se muestran como selector interactivo junto al precio
   const filas = p.variantes
     .map((v) => {
       const desc = [v.color, v.talla].filter(Boolean).join(" · ") || "—";
@@ -562,9 +769,63 @@ function variantesHTML(p) {
     </table>`;
 }
 
+function casosDeUsoHTML(p) {
+  const casos = CASOS_USO_POR_CATEGORIA[p.categoria];
+  if (!casos) return "";
+  const items = casos.map(
+    (c) => `
+      <figure class="caso-uso-item">
+        <img src="${c.img}" alt="${lang() === "en" ? c.labelEn : c.label}" loading="lazy">
+        <figcaption>${lang() === "en" ? c.labelEn : c.label}</figcaption>
+      </figure>`
+  ).join("");
+  return `<h2>${t("casosDeUsoTitle")}</h2><div class="casos-uso-grid">${items}</div>`;
+}
+
 function codigosHTML(p) {
   if (!p.sageTools) return "";
   return `<h2>${t("referenciaInterna")}</h2><table class="specs-table"><tr><td>${t("sageToolsLabel")}</td><td>${p.sageTools}</td></tr></table>`;
+}
+
+function selectorVariantesHTML(p) {
+  if (!tieneVariantesConPrecio(p)) return "";
+  const opciones = p.variantes
+    .map(
+      (v) => `<button type="button" class="variant-option" data-pvp="${v.pvp}" data-sage="${v.sageTools || ""}">${v.modelo}</button>`
+    )
+    .join("");
+  return `
+    <div class="variant-selector">
+      <div class="variant-selector-label">${t("elegirModeloTitle")}</div>
+      <div class="variant-options">${opciones}</div>
+      <div class="variant-ref" id="variant-ref"></div>
+    </div>`;
+}
+
+function initVariantSelector() {
+  const options = document.querySelectorAll(".variant-option");
+  if (!options.length) return;
+  const priceBigs = document.querySelectorAll(".price-big");
+  const refEl = document.getElementById("variant-ref");
+  const mailtoBtn = document.getElementById("btn-presupuesto");
+  const mailtoBase = mailtoBtn ? mailtoBtn.getAttribute("href") : null;
+
+  options.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      options.forEach((b) => b.classList.toggle("active", b === btn));
+      priceBigs.forEach((priceBig) => {
+        priceBig.classList.remove("is-range");
+        priceBig.removeAttribute("data-pvp-max");
+        priceBig.setAttribute("data-pvp", btn.getAttribute("data-pvp"));
+      });
+      const sage = btn.getAttribute("data-sage");
+      if (refEl) refEl.textContent = sage ? `${t("sageToolsLabel")}: ${sage}` : "";
+      if (mailtoBtn && mailtoBase) {
+        mailtoBtn.setAttribute("href", `${mailtoBase}${encodeURIComponent(" — " + btn.textContent)}`);
+      }
+      actualizarPreciosEnPagina();
+    });
+  });
 }
 
 function renderProducto() {
@@ -603,6 +864,14 @@ function renderProducto() {
   const relacionados = PRODUCTOS.filter((x) => x.categoria === p.categoria && x.id !== p.id).slice(0, 3);
   const relacionadosHTML = relacionados.map(cardHTML).join("");
   const mailtoPresupuesto = `mailto:${CONTACTO.email}?subject=${encodeURIComponent((lang() === "en" ? "Quote request: " : "Presupuesto ") + p.nombre)}`;
+  const fichaUrl = fichaTecnicaUrl(p);
+  const compraUrl = urlCompraBlizzcool(p);
+
+  const esVariante = tieneVariantesConPrecio(p);
+  const rango = esVariante ? rangoVariantesPrecio(p) : null;
+  const priceBigAttrs = esVariante
+    ? `class="price-big is-range" data-pvp="${rango.min}" data-pvp-max="${rango.max}"`
+    : `class="price-big" data-pvp="${p.pvp ?? ""}"`;
 
   cont.innerHTML = `
     <nav class="breadcrumb wrap">
@@ -620,17 +889,20 @@ function renderProducto() {
 
         <div class="buy-panel">
           <div class="price-row">
-            <span class="price-big" data-pvp="${p.pvp ?? ""}"></span>
+            <span ${priceBigAttrs}></span>
           </div>
-          <a class="btn btn-accent" href="${mailtoPresupuesto}">${t("solicitarPresupuesto")}</a>
+          ${selectorVariantesHTML(p)}
+          ${compraUrl ? `<a class="btn" href="${compraUrl}" target="_blank" rel="noopener">${t("comprarBlizzcool")}</a>` : ""}
+          <a class="btn btn-accent" id="btn-presupuesto" href="${mailtoPresupuesto}">${t("solicitarPresupuesto")}</a>
           <a class="btn btn-outline" href="${CONTACTO.whatsapp}" target="_blank" rel="noopener">${t("contactoAbrirWhatsapp")}</a>
+          ${fichaUrl ? `<a class="btn btn-outline" href="${fichaUrl}" target="_blank" rel="noopener">${t("verFichaPdf")}</a>` : ""}
           <a class="btn btn-outline" href="index.html#${p.categoria}">${t("verMasEquipos")}</a>
         </div>
       </div>
     </div>
 
     <div class="mobile-buy-bar">
-      <span class="price-big" data-pvp="${p.pvp ?? ""}"></span>
+      <span ${priceBigAttrs}></span>
       <a class="btn btn-accent" href="${mailtoPresupuesto}">${t("solicitarPresupuesto")}</a>
     </div>
 
@@ -643,6 +915,8 @@ function renderProducto() {
 
       ${aplicacionesHTML ? `<h2>${t("aplicacionesTitle")}</h2><ul class="tag-list">${aplicacionesHTML}</ul>` : ""}
 
+      ${casosDeUsoHTML(p)}
+
       ${variantesHTML(p)}
 
       ${codigosHTML(p)}
@@ -652,6 +926,7 @@ function renderProducto() {
 
   actualizarPreciosEnPagina();
   initProductGallery();
+  initVariantSelector();
 }
 
 /* ---------- Página de contacto ---------- */
