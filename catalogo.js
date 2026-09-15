@@ -586,6 +586,9 @@ function actualizarPreciosEnPagina() {
 function initChrome(activeKey) {
   const header = document.getElementById("site-header");
   const footer = document.getElementById("site-footer");
+  // La cabecera se reconstruye siempre cerrada (p. ej. al cambiar de idioma):
+  // si el body se quedó con la clase que bloquea el scroll, hay que soltarla aquí.
+  document.body.classList.remove("menu-open");
   if (header) header.innerHTML = chromeHTML(activeKey);
   if (footer) footer.innerHTML = footerHTML();
 
