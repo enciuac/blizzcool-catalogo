@@ -211,7 +211,7 @@ const CONTACTO = {
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("C/ Segorbe 45, 03206 Elche, Alicante"),
 };
 
-const BLIZZTHERM_URL = "https://www.catalogo.blizztherm.es";
+const BLIZZTHERM_URL = "https://catalogo.blizztherm.es/index.html";
 
 const PRODUCTOS_CON_FICHA = new Set([
   "ac-1900-1", "ac-2700-1", "ac-3500-2", "ac-5300-3",
