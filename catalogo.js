@@ -65,7 +65,8 @@ const STR = {
     presupuestoConsultaPlaceholder: "Cantidad de equipos, ubicación, plazo…",
     presupuestoEnviar: "Enviar solicitud",
     presupuestoEnviando: "Enviando…",
-    presupuestoOkText: "¡Gracias! Hemos recibido tu solicitud y te contactaremos en breve.",
+    presupuestoOkTitle: "¡Solicitud enviada!",
+    presupuestoOkText: "Hemos recibido tu solicitud y te contactaremos en breve.",
     presupuestoErrorText: "No hemos podido enviar el formulario. Escríbenos directamente a",
     equipoNoEncontrado: "Equipo no encontrado",
     noExiste: (id) => `No existe ningún equipo con el identificador "${id}" en el catálogo.`,
@@ -150,7 +151,8 @@ const STR = {
     presupuestoConsultaPlaceholder: "Number of units, location, timeframe…",
     presupuestoEnviar: "Send request",
     presupuestoEnviando: "Sending…",
-    presupuestoOkText: "Thank you! We've received your request and will contact you shortly.",
+    presupuestoOkTitle: "Request sent!",
+    presupuestoOkText: "We've received your request and will contact you shortly.",
     presupuestoErrorText: "We couldn't send the form. Write to us directly at",
     equipoNoEncontrado: "Product not found",
     noExiste: (id) => `There's no product with the identifier "${id}" in the catalog.`,
@@ -626,9 +628,19 @@ function footerHTML() {
           </label>
           <div id="quote-status" class="quote-status" role="status" aria-live="polite"></div>
           <div class="quote-actions">
-            <button type="submit" class="btn btn-accent" id="quote-submit">${t("presupuestoEnviar")}</button>
+            <button type="submit" class="btn btn-accent" id="quote-submit">
+              <span class="quote-submit-label">${t("presupuestoEnviar")}</span>
+            </button>
           </div>
         </form>
+        <div id="quote-success" class="quote-success" hidden>
+          <div class="quote-success-icon">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 7"/></svg>
+          </div>
+          <h3>${t("presupuestoOkTitle")}</h3>
+          <p>${t("presupuestoOkText")}</p>
+          <button type="button" class="btn js-quote-close">${t("cerrar")}</button>
+        </div>
       </div>
     </div>
     <div class="float-stack">
@@ -1218,12 +1230,16 @@ function abrirQuoteModal(producto) {
   if (!modal) return;
   const form = document.getElementById("quote-form");
   const statusEl = document.getElementById("quote-status");
+  const submitBtn = document.getElementById("quote-submit");
+  document.getElementById("quote-success").hidden = true;
   form.hidden = false;
   form.reset();
   document.getElementById("quote-producto").value = producto || "";
   document.getElementById("quote-idioma").value = lang();
   statusEl.className = "quote-status";
   statusEl.innerHTML = "";
+  submitBtn.disabled = false;
+  submitBtn.classList.remove("is-loading");
   modal.hidden = false;
   document.body.classList.add("menu-open");
   const drawer = document.getElementById("mobile-menu");
@@ -1246,7 +1262,7 @@ async function submitQuoteForm(form) {
   const statusEl = document.getElementById("quote-status");
   const submitBtn = document.getElementById("quote-submit");
   submitBtn.disabled = true;
-  submitBtn.textContent = t("presupuestoEnviando");
+  submitBtn.classList.add("is-loading");
   statusEl.className = "quote-status";
   statusEl.innerHTML = "";
   try {
@@ -1254,13 +1270,12 @@ async function submitQuoteForm(form) {
     const data = await res.json();
     if (!data || !data.ok) throw new Error((data && data.error) || "send-failed");
     form.hidden = true;
-    statusEl.className = "quote-status quote-status-ok";
-    statusEl.textContent = t("presupuestoOkText");
+    document.getElementById("quote-success").hidden = false;
   } catch (err) {
     statusEl.className = "quote-status quote-status-error";
     statusEl.innerHTML = `${t("presupuestoErrorText")} <a class="link-inline" href="mailto:${CONTACTO.email}">${CONTACTO.email}</a>.`;
     submitBtn.disabled = false;
-    submitBtn.textContent = t("presupuestoEnviar");
+    submitBtn.classList.remove("is-loading");
   }
 }
 
