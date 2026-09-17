@@ -762,18 +762,6 @@ function initChrome(activeKey) {
       try { localStorage.setItem("bc-theme", isDark ? "light" : "dark"); } catch (e) {}
     });
   });
-
-  // El botón de Blizztherm solo aparece tras hacer scroll, para no saturar la carga inicial
-  const syncBlizzthermFloat = () => {
-    document.querySelectorAll(".blizztherm-float").forEach((el) => {
-      el.classList.toggle("is-visible", window.scrollY > 240);
-    });
-  };
-  syncBlizzthermFloat();
-  if (!window.__blizzthermScrollBound) {
-    window.__blizzthermScrollBound = true;
-    window.addEventListener("scroll", syncBlizzthermFloat, { passive: true });
-  }
 }
 
 /* ---------- Página índice ---------- */
