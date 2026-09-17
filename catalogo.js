@@ -24,8 +24,8 @@ function setLang(l) {
 const STR = {
   es: {
     navInicio: "Inicio", navCatalogo: "Catálogo", navContacto: "Contacto",
-    heroTitle: "Equipos de climatización, frío y protección térmica para uso industrial y deportivo.",
-    heroSubtitle: "Aire acondicionado portátil, enfriadores evaporativos, nebulizadores, ventilación y ropa refrigerante para naves, talleres, eventos e instalaciones deportivas. Un catálogo, una ficha técnica por equipo.",
+    heroTitle: "Equipos de climatización, frío y ventilación para uso industrial y deportivo.",
+    heroSubtitle: "Aire acondicionado portátil, enfriadores evaporativos, nebulizadores y ventilación para naves, talleres, eventos e instalaciones deportivas. Un catálogo, una ficha técnica por equipo.",
     statTotal: "Equipos en catálogo", statCategorias: "Familias de producto",
     statFotos: "Hasta 15 °C menos en condiciones óptimas", statPrecios: "Sin obra: equipos portátiles con enchufe estándar",
     ctaBandTitle: "¿No encuentras el equipo adecuado para tu espacio?",
@@ -54,11 +54,37 @@ const STR = {
     referenciaInterna: "Referencia interna", sageToolsLabel: "Referencia",
     otrosEquipos: "Otros equipos de la gama",
     solicitarPresupuesto: "Solicitar presupuesto", verMasEquipos: "Ver más equipos de esta gama",
+    presupuestoModalTitle: "Solicitar presupuesto",
+    presupuestoModalText: "Cuéntanos qué necesitas y te contactamos con la propuesta ajustada a tu caso.",
+    presupuestoNombreLabel: "Nombre y apellidos",
+    presupuestoEmpresaLabel: "Empresa",
+    presupuestoLocalidadLabel: "Localidad",
+    presupuestoTelefonoLabel: "Teléfono de contacto",
+    presupuestoEmailLabel: "Correo electrónico",
+    presupuestoConsultaLabel: "Cuéntanos brevemente qué necesitas",
+    presupuestoConsultaPlaceholder: "Cantidad de equipos, ubicación, plazo…",
+    presupuestoEnviar: "Enviar solicitud",
+    presupuestoEnviando: "Enviando…",
+    presupuestoOkText: "¡Gracias! Hemos recibido tu solicitud y te contactaremos en breve.",
+    presupuestoErrorText: "No hemos podido enviar el formulario. Escríbenos directamente a",
     equipoNoEncontrado: "Equipo no encontrado",
     noExiste: (id) => `No existe ningún equipo con el identificador "${id}" en el catálogo.`,
     volverCatalogo: "Volver al catálogo",
     footerLine: "© Blizzcool (Toolsplace, S.L.)",
     footerRight: "+34 617 879 087 · blizzcool.es",
+    footerPrivacidad: "Aviso de cookies y privacidad",
+    privacidadTitle: "Aviso de cookies y privacidad",
+    privacidadSubtitle: "Este catálogo no usa cookies de seguimiento ni recoge datos personales. Aquí explicamos exactamente qué guarda tu navegador y por qué.",
+    privacidadAlmacenTitle: "Qué guarda tu navegador",
+    privacidadAlmacenText: "Esta web no utiliza cookies. Usa dos valores técnicos guardados en tu propio navegador (localStorage y sessionStorage), nunca enviados a ningún servidor: tu preferencia de modo claro/oscuro, y si quieres ver los precios con o sin IVA. Ambos se activan solo cuando tú interactúas con esos controles y desaparecen si borras los datos de tu navegador.",
+    privacidadSeguimientoTitle: "Sin seguimiento ni analítica",
+    privacidadSeguimientoText: "No usamos Google Analytics, píxeles publicitarios ni ningún sistema de seguimiento de terceros. No sabemos quién visita esta web ni qué páginas concretas mira cada persona.",
+    privacidadFuentesTitle: "Tipografías de Google Fonts",
+    privacidadFuentesText: "Las tipografías del sitio se cargan desde los servidores de Google Fonts, lo que implica una petición técnica a Google (incluyendo tu dirección IP) para poder mostrarlas, igual que ocurre con cualquier recurso externo. Google indica que este servicio no instala cookies de seguimiento.",
+    privacidadContactoTitle: "Formularios y contacto",
+    privacidadContactoText: "El formulario de \"Solicitar presupuesto\" envía los datos que rellenas directamente a nuestro correo, sin guardarlos en ninguna base de datos ni compartirlos con terceros. Los demás botones de email y WhatsApp simplemente abren tu programa de correo o WhatsApp para que nos escribas.",
+    privacidadDudasTitle: "¿Dudas?",
+    privacidadDudasText: "Escríbenos a través de la página de contacto y lo resolvemos encantados.",
     contactoTitle: "Contacto",
     contactoSubtitle: "¿Tienes dudas sobre qué equipo necesitas? Escríbenos, llámanos o pasa a vernos.",
     contactoEmailLabel: "Email", contactoTelLabel: "Teléfono", contactoWhatsappLabel: "WhatsApp",
@@ -77,13 +103,14 @@ const STR = {
     compartirTexto: "Escanea el código con la cámara del móvil o copia el enlace.",
     copiarEnlace: "Copiar enlace", enlaceCopiado: "Enlace copiado", compartirNativo: "Compartir…",
     descargarQR: "Descargar QR", cerrar: "Cerrar",
+    verGamaBlizztherm: "Ver gama de calefacción en Blizztherm",
     verEnGrande: "Ver foto en grande",
     fotoAnterior: "Foto anterior", fotoSiguiente: "Foto siguiente",
   },
   en: {
     navInicio: "Home", navCatalogo: "Catalog", navContacto: "Contact",
-    heroTitle: "Climate control, cooling and thermal protection equipment for industry and sport.",
-    heroSubtitle: "Portable air conditioning, evaporative coolers, misting fans, ventilation and cooling workwear for factories, workshops, events and sports facilities. One catalog, one datasheet per unit.",
+    heroTitle: "Climate control, cooling and ventilation equipment for industry and sport.",
+    heroSubtitle: "Portable air conditioning, evaporative coolers, misting fans and ventilation for factories, workshops, events and sports facilities. One catalog, one datasheet per unit.",
     statTotal: "Products in catalog", statCategorias: "Product families",
     statFotos: "Up to 15 °C cooler in optimal conditions", statPrecios: "No building work: portable units on a standard plug",
     ctaBandTitle: "Can't find the right equipment for your space?",
@@ -112,11 +139,37 @@ const STR = {
     referenciaInterna: "Internal reference", sageToolsLabel: "Reference",
     otrosEquipos: "Other equipment in this range",
     solicitarPresupuesto: "Request a quote", verMasEquipos: "See more equipment in this range",
+    presupuestoModalTitle: "Request a quote",
+    presupuestoModalText: "Tell us what you need and we'll get back to you with a proposal tailored to your case.",
+    presupuestoNombreLabel: "Full name",
+    presupuestoEmpresaLabel: "Company",
+    presupuestoLocalidadLabel: "Location",
+    presupuestoTelefonoLabel: "Contact phone",
+    presupuestoEmailLabel: "Email address",
+    presupuestoConsultaLabel: "Briefly tell us what you need",
+    presupuestoConsultaPlaceholder: "Number of units, location, timeframe…",
+    presupuestoEnviar: "Send request",
+    presupuestoEnviando: "Sending…",
+    presupuestoOkText: "Thank you! We've received your request and will contact you shortly.",
+    presupuestoErrorText: "We couldn't send the form. Write to us directly at",
     equipoNoEncontrado: "Product not found",
     noExiste: (id) => `There's no product with the identifier "${id}" in the catalog.`,
     volverCatalogo: "Back to catalog",
     footerLine: "© Blizzcool (Toolsplace, S.L.)",
     footerRight: "+34 617 879 087 · blizzcool.es",
+    footerPrivacidad: "Cookies & privacy notice",
+    privacidadTitle: "Cookies & privacy notice",
+    privacidadSubtitle: "This catalog doesn't use tracking cookies or collect personal data. Here's exactly what your browser stores and why.",
+    privacidadAlmacenTitle: "What your browser stores",
+    privacidadAlmacenText: "This site doesn't use cookies. It uses two technical values stored in your own browser (localStorage and sessionStorage), never sent to any server: your light/dark mode preference, and whether you want to see prices with or without VAT. Both are only set when you interact with those controls, and they disappear if you clear your browser data.",
+    privacidadSeguimientoTitle: "No tracking or analytics",
+    privacidadSeguimientoText: "We don't use Google Analytics, advertising pixels or any third-party tracking. We don't know who visits this site or which specific pages anyone looks at.",
+    privacidadFuentesTitle: "Google Fonts typefaces",
+    privacidadFuentesText: "The site's fonts are loaded from Google Fonts' servers, which involves a technical request to Google (including your IP address) to display them, just like any other external resource. Google states this service doesn't set tracking cookies.",
+    privacidadContactoTitle: "Forms & contact",
+    privacidadContactoText: "The \"Request a quote\" form sends what you fill in directly to our email, without storing it in any database or sharing it with third parties. The other email and WhatsApp buttons simply open your email app or WhatsApp so you can write to us.",
+    privacidadDudasTitle: "Questions?",
+    privacidadDudasText: "Reach out via the contact page and we'll be happy to help.",
     contactoTitle: "Contact",
     contactoSubtitle: "Not sure which unit you need? Write to us, call us, or come and see us.",
     contactoEmailLabel: "Email", contactoTelLabel: "Phone", contactoWhatsappLabel: "WhatsApp",
@@ -135,6 +188,7 @@ const STR = {
     compartirTexto: "Scan the code with your phone camera or copy the link.",
     copiarEnlace: "Copy link", enlaceCopiado: "Link copied", compartirNativo: "Share…",
     descargarQR: "Download QR", cerrar: "Close",
+    verGamaBlizztherm: "See our heating range at Blizztherm",
     verEnGrande: "View full-size photo",
     fotoAnterior: "Previous photo", fotoSiguiente: "Next photo",
   },
@@ -154,6 +208,8 @@ const CONTACTO = {
   direccion: "C/ Segorbe 45, P.I. Carrús, 03206 Elche (Alicante)",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("C/ Segorbe 45, 03206 Elche, Alicante"),
 };
+
+const BLIZZTHERM_URL = "https://www.catalogo.blizztherm.es";
 
 const PRODUCTOS_CON_FICHA = new Set([
   "ac-1900-1", "ac-2700-1", "ac-3500-2", "ac-5300-3",
@@ -190,12 +246,6 @@ const URLS_BLIZZCOOL = {
   "gd-120": "https://blizzcool.es/ventilador-industrial/portatil/ventilador-movil-industrial-blizzcool-gd120-o1200/",
   "gd-150": "https://blizzcool.es/ventilador-industrial/portatil/ventilador-movil-industrial-blizzcool-gd150-o1500/",
   "gd-200": "https://blizzcool.es/ventilador-industrial/portatil/ventilador-movil-industrial-blizzcool-gd200-o2000-mm/",
-  bw05: "https://blizzcool.es/ropa-termica/chalecos/chaleco-de-trabajo-refrescante-bw05/",
-  "bw02-pcm": "https://blizzcool.es/ropa-termica/chalecos/chaleco-refrigerante-pcm-bw02/",
-  bw04: "https://blizzcool.es/ropa-termica/chalecos/chaleco-deportivo-refrescante-bw04/",
-  bw08: "https://blizzcool.es/ropa-termica/chalecos/chaleco-reflectante-refrescante-bw08/",
-  "bw01-pcm": "https://blizzcool.es/ropa-termica/chalecos/chaleco-refrigerante-pcm-bw01/",
-  "pack-pc01": "https://blizzcool.es/ropa-termica/placas/pack-placas-refrigerantes-4-unidades-pc01/",
   "helice-bc": "https://blizzcool.es/recambios/recambios-enfriador-evaporativo/helices-enfriador/",
   "parrilla-bc": "https://blizzcool.es/recambios/recambios-enfriador-evaporativo/parrilla-enfriador/",
   "generador-anion": "https://blizzcool.es/recambios/recambios-enfriador-evaporativo/generador-de-anion/",
@@ -204,15 +254,19 @@ const URLS_BLIZZCOOL = {
   "bomba-bc": "https://blizzcool.es/recambios/recambios-enfriador-evaporativo/bomba-blizzcool-enfriador-bc200-bc290/",
 };
 
-function urlCompraBlizzcool(p) {
-  const base = URLS_BLIZZCOOL[p.id];
-  if (!base) return null;
+function urlConUtm(base, campaign) {
   const params = new URLSearchParams({
     utm_source: "catalogo-interno",
     utm_medium: "referral",
-    utm_campaign: p.id,
+    utm_campaign: campaign,
   });
   return `${base}?${params.toString()}`;
+}
+
+function urlCompraBlizzcool(p) {
+  const base = URLS_BLIZZCOOL[p.id];
+  if (!base) return null;
+  return urlConUtm(base, p.id);
 }
 
 const CASOS_USO_POR_CATEGORIA = {
@@ -425,7 +479,7 @@ function cardHTML(p) {
       </div>
       <div class="card-foot">
         <span class="price ${precio.pendiente ? "pending" : ""} ${esRango ? "is-range" : ""}" data-pvp="${pvpBase ?? ""}">${precioTexto}<span class="iva-note">${nota}</span></span>
-        <span class="link-inline">${t("fichaTecnicaLink")}</span>
+        <span class="card-cta">${t("fichaTecnicaLink")}</span>
       </div>
     </a>`;
 }
@@ -517,6 +571,7 @@ function footerHTML() {
     <div class="wrap">
       <span>${t("footerLine")}</span>
       <span>${t("footerRight")}</span>
+      <span><a class="link-inline" href="privacidad.html">${t("footerPrivacidad")}</a></span>
     </div>
     <div id="share-modal" class="share-modal" role="dialog" aria-modal="true" aria-labelledby="share-title" hidden>
       <div class="share-backdrop js-share-close"></div>
@@ -532,10 +587,58 @@ function footerHTML() {
         </div>
       </div>
     </div>
+    <div id="quote-modal" class="share-modal" role="dialog" aria-modal="true" aria-labelledby="quote-title" hidden>
+      <div class="share-backdrop js-quote-close"></div>
+      <div class="share-card quote-card">
+        <button type="button" class="drawer-close js-quote-close" aria-label="${t("cerrar")}">×</button>
+        <h2 id="quote-title">${t("presupuestoModalTitle")}</h2>
+        <p>${t("presupuestoModalText")}</p>
+        <form id="quote-form" class="quote-form">
+          <input type="hidden" name="producto" id="quote-producto">
+          <input type="hidden" name="idioma" id="quote-idioma">
+          <label class="quote-hp" aria-hidden="true">
+            Website
+            <input type="text" name="website" tabindex="-1" autocomplete="off">
+          </label>
+          <label class="quote-field">
+            <span>${t("presupuestoNombreLabel")}</span>
+            <input type="text" name="nombre" required>
+          </label>
+          <label class="quote-field">
+            <span>${t("presupuestoEmpresaLabel")}</span>
+            <input type="text" name="empresa">
+          </label>
+          <label class="quote-field">
+            <span>${t("presupuestoLocalidadLabel")}</span>
+            <input type="text" name="localidad">
+          </label>
+          <label class="quote-field">
+            <span>${t("presupuestoTelefonoLabel")}</span>
+            <input type="tel" name="telefono" required>
+          </label>
+          <label class="quote-field">
+            <span>${t("presupuestoEmailLabel")}</span>
+            <input type="email" name="email" required>
+          </label>
+          <label class="quote-field">
+            <span>${t("presupuestoConsultaLabel")}</span>
+            <textarea name="consulta" rows="3" placeholder="${t("presupuestoConsultaPlaceholder")}"></textarea>
+          </label>
+          <div id="quote-status" class="quote-status" role="status" aria-live="polite"></div>
+          <div class="quote-actions">
+            <button type="submit" class="btn btn-accent" id="quote-submit">${t("presupuestoEnviar")}</button>
+          </div>
+        </form>
+      </div>
+    </div>
     <div class="float-stack">
     ${ivaFloatHTML()}
     <a class="wa-float" href="${CONTACTO.whatsapp}" target="_blank" rel="noopener" aria-label="WhatsApp ${CONTACTO.telefonoDisplay}" title="WhatsApp ${CONTACTO.telefonoDisplay}">
       <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.6.8 5.1 2.2 7.2L3.2 29l6.2-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.9S23.2 3 16 3zm0 23.5c-2.1 0-4.1-.6-5.8-1.6l-.4-.2-3.7 1.2 1.2-3.6-.3-.4A10.6 10.6 0 0 1 5.3 15.8C5.3 10 10.1 5.3 16 5.3S26.7 10 26.7 15.8 21.9 26.5 16 26.5zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.6-1.6-.9-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.8 5 .8.4 1.4.6 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+    </a>
+    </div>
+    <a class="blizztherm-float" href="${urlConUtm(BLIZZTHERM_URL, "blizztherm-float")}" target="_blank" rel="noopener" aria-label="${t("verGamaBlizztherm")}" title="${t("verGamaBlizztherm")}">
+      <img src="img/blizztherm-icon.svg" alt="Blizztherm" width="23" height="32">
     </a>`;
 }
 
@@ -630,6 +733,7 @@ function initChrome(activeKey) {
   }
 
   initShare();
+  initQuoteModal();
 
   document.querySelectorAll(".js-lang-toggle").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -646,6 +750,18 @@ function initChrome(activeKey) {
       try { localStorage.setItem("bc-theme", isDark ? "light" : "dark"); } catch (e) {}
     });
   });
+
+  // El botón de Blizztherm solo aparece tras hacer scroll, para no saturar la carga inicial
+  const syncBlizzthermFloat = () => {
+    document.querySelectorAll(".blizztherm-float").forEach((el) => {
+      el.classList.toggle("is-visible", window.scrollY > 240);
+    });
+  };
+  syncBlizzthermFloat();
+  if (!window.__blizzthermScrollBound) {
+    window.__blizzthermScrollBound = true;
+    window.addEventListener("scroll", syncBlizzthermFloat, { passive: true });
+  }
 }
 
 /* ---------- Página índice ---------- */
@@ -810,8 +926,8 @@ function initVariantSelector() {
   if (!options.length) return;
   const priceBigs = document.querySelectorAll(".price-big");
   const refEl = document.getElementById("variant-ref");
-  const mailtoBtn = document.getElementById("btn-presupuesto");
-  const mailtoBase = mailtoBtn ? mailtoBtn.getAttribute("href") : null;
+  const presupuestoBtns = document.querySelectorAll(".js-presupuesto-open[data-producto]");
+  const productoBase = presupuestoBtns.length ? presupuestoBtns[0].getAttribute("data-producto") : null;
 
   options.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -823,8 +939,8 @@ function initVariantSelector() {
       });
       const sage = btn.getAttribute("data-sage");
       if (refEl) refEl.textContent = sage ? `${t("sageToolsLabel")}: ${sage}` : "";
-      if (mailtoBtn && mailtoBase) {
-        mailtoBtn.setAttribute("href", `${mailtoBase}${encodeURIComponent(" — " + btn.textContent)}`);
+      if (productoBase) {
+        presupuestoBtns.forEach((b) => b.setAttribute("data-producto", `${productoBase} — ${btn.textContent}`));
       }
       actualizarPreciosEnPagina();
     });
@@ -842,6 +958,7 @@ function renderProducto() {
   document.getElementById("cta-product-title").textContent = t("ctaProductTitle");
   document.getElementById("cta-product-text").textContent = t("ctaProductText");
   document.getElementById("cta-product-btn").textContent = t("ctaProductBtn");
+  document.getElementById("cta-product-btn-link").setAttribute("data-producto", p ? p.nombre : "");
   document.documentElement.lang = lang();
 
   if (!p) {
@@ -866,7 +983,6 @@ function renderProducto() {
 
   const relacionados = PRODUCTOS.filter((x) => x.categoria === p.categoria && x.id !== p.id).slice(0, 3);
   const relacionadosHTML = relacionados.map(cardHTML).join("");
-  const mailtoPresupuesto = `mailto:${CONTACTO.email}?subject=${encodeURIComponent((lang() === "en" ? "Quote request: " : "Presupuesto ") + p.nombre)}`;
   const fichaUrl = fichaTecnicaUrl(p);
   const compraUrl = urlCompraBlizzcool(p);
 
@@ -896,7 +1012,7 @@ function renderProducto() {
           </div>
           ${selectorVariantesHTML(p)}
           ${compraUrl ? `<a class="btn" href="${compraUrl}" target="_blank" rel="noopener">${t("comprarBlizzcool")}</a>` : ""}
-          <a class="btn btn-accent" id="btn-presupuesto" href="${mailtoPresupuesto}">${t("solicitarPresupuesto")}</a>
+          <button type="button" class="btn btn-accent js-presupuesto-open" id="btn-presupuesto" data-producto="${p.nombre}">${t("solicitarPresupuesto")}</button>
           <a class="btn btn-outline" href="${CONTACTO.whatsapp}" target="_blank" rel="noopener">${t("contactoAbrirWhatsapp")}</a>
           ${fichaUrl ? `<a class="btn btn-outline" href="${fichaUrl}" target="_blank" rel="noopener">${t("verFichaPdf")}</a>` : ""}
           <a class="btn btn-outline" href="index.html#${p.categoria}">${t("verMasEquipos")}</a>
@@ -906,7 +1022,7 @@ function renderProducto() {
 
     <div class="mobile-buy-bar">
       <span ${priceBigAttrs}></span>
-      <a class="btn btn-accent" href="${mailtoPresupuesto}">${t("solicitarPresupuesto")}</a>
+      <button type="button" class="btn btn-accent js-presupuesto-open" data-producto="${p.nombre}">${t("solicitarPresupuesto")}</button>
     </div>
 
     <div class="wrap section-block">
@@ -977,6 +1093,42 @@ function renderContacto() {
         <a class="btn btn-accent" href="mailto:${CONTACTO.email}">${t("contactoEscribirEmail")}</a>
         <a class="btn btn-outline" href="${CONTACTO.whatsapp}" target="_blank" rel="noopener">${t("contactoAbrirWhatsapp")}</a>
       </div>
+    </div>`;
+}
+
+/* ---------- Página de aviso de cookies y privacidad ---------- */
+
+function renderPrivacidad() {
+  initChrome("privacidad");
+  document.documentElement.lang = lang();
+  document.title = `${t("privacidadTitle")} · Blizzcool`;
+
+  const cont = document.getElementById("privacidad-cont");
+  cont.innerHTML = `
+    <div class="wrap contact-hero">
+      <h1>${t("privacidadTitle")}</h1>
+      <p>${t("privacidadSubtitle")}</p>
+    </div>
+
+    <div class="wrap section-block">
+      <h2>${t("privacidadAlmacenTitle")}</h2>
+      <p>${t("privacidadAlmacenText")}</p>
+    </div>
+    <div class="wrap section-block">
+      <h2>${t("privacidadSeguimientoTitle")}</h2>
+      <p>${t("privacidadSeguimientoText")}</p>
+    </div>
+    <div class="wrap section-block">
+      <h2>${t("privacidadFuentesTitle")}</h2>
+      <p>${t("privacidadFuentesText")}</p>
+    </div>
+    <div class="wrap section-block">
+      <h2>${t("privacidadContactoTitle")}</h2>
+      <p>${t("privacidadContactoText")}</p>
+    </div>
+    <div class="wrap section-block">
+      <h2>${t("privacidadDudasTitle")}</h2>
+      <p>${t("privacidadDudasText")} <a class="link-inline" href="contacto.html">${t("contactoTitle")}</a>.</p>
     </div>`;
 }
 
@@ -1058,5 +1210,83 @@ function initShare() {
     a.download = "blizzcool-qr.png";
     a.href = canvas.toDataURL("image/png");
     a.click();
+  });
+}
+
+function abrirQuoteModal(producto) {
+  const modal = document.getElementById("quote-modal");
+  if (!modal) return;
+  const form = document.getElementById("quote-form");
+  const statusEl = document.getElementById("quote-status");
+  form.hidden = false;
+  form.reset();
+  document.getElementById("quote-producto").value = producto || "";
+  document.getElementById("quote-idioma").value = lang();
+  statusEl.className = "quote-status";
+  statusEl.innerHTML = "";
+  modal.hidden = false;
+  document.body.classList.add("menu-open");
+  const drawer = document.getElementById("mobile-menu");
+  const backdrop = document.getElementById("drawer-backdrop");
+  const mt = document.getElementById("menu-toggle");
+  if (drawer) drawer.classList.remove("open");
+  if (backdrop) backdrop.classList.remove("open");
+  if (mt) { mt.classList.remove("open"); mt.setAttribute("aria-expanded", "false"); }
+}
+
+function cerrarQuoteModal() {
+  const modal = document.getElementById("quote-modal");
+  if (!modal) return;
+  modal.hidden = true;
+  document.body.classList.remove("menu-open");
+}
+
+async function submitQuoteForm(form) {
+  if (form.website.value) return; // honeypot: los bots suelen rellenar campos ocultos
+  const statusEl = document.getElementById("quote-status");
+  const submitBtn = document.getElementById("quote-submit");
+  submitBtn.disabled = true;
+  submitBtn.textContent = t("presupuestoEnviando");
+  statusEl.className = "quote-status";
+  statusEl.innerHTML = "";
+  try {
+    const res = await fetch("enviar-presupuesto.php", { method: "POST", body: new FormData(form) });
+    const data = await res.json();
+    if (!data || !data.ok) throw new Error((data && data.error) || "send-failed");
+    form.hidden = true;
+    statusEl.className = "quote-status quote-status-ok";
+    statusEl.textContent = t("presupuestoOkText");
+  } catch (err) {
+    statusEl.className = "quote-status quote-status-error";
+    statusEl.innerHTML = `${t("presupuestoErrorText")} <a class="link-inline" href="mailto:${CONTACTO.email}">${CONTACTO.email}</a>.`;
+    submitBtn.disabled = false;
+    submitBtn.textContent = t("presupuestoEnviar");
+  }
+}
+
+// Delegado en document: los botones "Solicitar presupuesto" y el propio modal
+// se recrean en cada renderPage()/cambio de idioma, así que no basta con
+// enlazar listeners una vez sobre nodos que luego se sustituyen.
+function initQuoteModal() {
+  if (window.__quoteModalBound) return;
+  window.__quoteModalBound = true;
+
+  document.addEventListener("click", (e) => {
+    const openBtn = e.target.closest(".js-presupuesto-open");
+    if (openBtn) { abrirQuoteModal(openBtn.getAttribute("data-producto")); return; }
+    const closeBtn = e.target.closest(".js-quote-close");
+    if (closeBtn) cerrarQuoteModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    const modal = document.getElementById("quote-modal");
+    if (e.key === "Escape" && modal && !modal.hidden) cerrarQuoteModal();
+  });
+
+  document.addEventListener("submit", (e) => {
+    if (e.target && e.target.id === "quote-form") {
+      e.preventDefault();
+      submitQuoteForm(e.target);
+    }
   });
 }

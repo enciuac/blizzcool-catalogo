@@ -20,6 +20,7 @@
   --blue: #6b8ec8;         /* igual a blue-brand: color de marca exacto */
   --blue-dark: #4775c1;    /* solo para :hover y texto pequeño, más oscuro que el azul de marca */
   --blue-soft: #f3f6fb;
+  --red-brand: #a52020;    /* solo para mensajes de error de formularios */
   --radius: 6px;
   --radius-lg: 12px;
   --shadow: 0 6px 24px rgba(27, 36, 51, 0.08);
@@ -41,6 +42,7 @@
   --line: #2b3341;
   --green-soft: #16231a;
   --blue-soft: #182333;
+  --red-brand: #ef4444;
   --shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
 }
 
@@ -49,6 +51,8 @@
 }
 
 :root[data-theme="dark"] .iva-toggle-track { background: #384154; }
+
+:root[data-theme="dark"] .iva-float:not([aria-pressed="true"]) { background: #fff; }
 
 :root[data-theme="dark"] .share-qr canvas { background: #fff; }
 
@@ -467,6 +471,17 @@ button { font-family: inherit; }
   border-bottom: 1px solid var(--line);
 }
 
+.cat-nav::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 1px;
+  width: 28px;
+  background: linear-gradient(to right, transparent, var(--bg-card));
+  pointer-events: none;
+}
+
 .cat-nav .wrap {
   display: flex;
   gap: 8px;
@@ -592,6 +607,19 @@ button { font-family: inherit; }
 
 .link-inline { color: var(--blue); text-decoration: none; font-weight: 600; white-space: nowrap; }
 
+.card-cta {
+  color: var(--blue);
+  background: var(--blue-soft);
+  font-weight: 600;
+  font-size: 12.5px;
+  white-space: nowrap;
+  padding: 5px 12px;
+  border-radius: 999px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.card:hover .card-cta { background: var(--blue); color: #fff; }
+
 .placeholder-photo {
   width: 100%;
   height: 100%;
@@ -623,6 +651,8 @@ button { font-family: inherit; }
   background: var(--blue);
   color: #fff;
   text-decoration: none;
+  border: none;
+  cursor: pointer;
   font-size: 15px;
   font-weight: 600;
   padding: 13px 22px;
@@ -721,6 +751,33 @@ body.has-buy-bar .site-footer { padding-bottom: 100px; }
 
 /* En fichas de producto, en móvil, sube por encima de la barra fija de compra */
 body.has-buy-bar .float-stack { bottom: calc(86px + env(safe-area-inset-bottom)); }
+
+.blizztherm-float {
+  position: fixed;
+  left: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 34;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 22px rgba(27, 36, 51, 0.2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.blizztherm-float:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(27, 36, 51, 0.3); }
+.blizztherm-float img { display: block; width: auto; height: 32px; }
+
+.blizztherm-float { opacity: 0; transform: translateY(8px); pointer-events: none; }
+.blizztherm-float.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.blizztherm-float.is-visible:hover { transform: translateY(-2px); }
+.blizztherm-float { transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.15s ease; }
+
+body.has-buy-bar .blizztherm-float { bottom: calc(86px + env(safe-area-inset-bottom)); }
 
 /* =========================================================
    FICHA DE PRODUCTO
@@ -1170,6 +1227,7 @@ body.lightbox-open { overflow: hidden; }
   .product-media { position: sticky; top: calc(var(--header-h) + 20px); }
   .mobile-buy-bar { display: none; }
   .float-stack, body.has-buy-bar .float-stack { right: 24px; bottom: 24px; }
+  .blizztherm-float, body.has-buy-bar .blizztherm-float { left: 24px; bottom: 24px; }
   .specs-table td { padding: 12px 16px; }
   .section-block h2 { font-size: 20px; margin-top: 32px; }
 }
@@ -1271,3 +1329,37 @@ body.lightbox-open { overflow: hidden; }
 .share-actions { display: grid; gap: 8px; }
 .share-actions .btn { width: 100%; border: 1px solid transparent; cursor: pointer; font-family: inherit; }
 .share-actions .btn-outline { border-color: var(--line); }
+
+/* ---------- Modal de solicitud de presupuesto ---------- */
+
+.quote-card { max-width: 440px; max-height: 90vh; overflow-y: auto; }
+
+.quote-form { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; text-align: left; }
+
+.quote-field { display: flex; flex-direction: column; gap: 5px; }
+.quote-field span { font-size: 12.5px; font-weight: 600; color: var(--ink-soft); }
+
+.quote-field input,
+.quote-field textarea {
+  font-family: inherit;
+  font-size: 14.5px;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  width: 100%;
+}
+
+.quote-field input:focus,
+.quote-field textarea:focus { outline: none; border-color: var(--blue-brand); }
+.quote-field textarea { resize: vertical; min-height: 64px; }
+
+.quote-hp { position: absolute; left: -9999px; top: -9999px; }
+
+.quote-status { font-size: 13.5px; }
+.quote-status-ok { color: var(--green-hover); font-weight: 600; }
+.quote-status-error { color: var(--red-brand); }
+
+.quote-actions { margin-top: 2px; }
+.quote-actions .btn { width: 100%; border: 1px solid transparent; }
